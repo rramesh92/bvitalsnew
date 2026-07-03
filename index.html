@@ -57,7 +57,22 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:14p
 .bv-subnav .nav-tab{display:flex;align-items:center;gap:5px;padding:0 14px;color:var(--navy-800);font-weight:600;font-size:13.5px;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer;font-family:inherit;text-decoration:none}
 .bv-subnav .nav-tab:hover{color:var(--teal-700)}
 .bv-subnav .nav-tab.active{border-bottom-color:var(--warn);color:var(--navy-900)}
-.bv-subnav .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.bv-subnav .caret{font-size:9px;opacity:.6}
+.bv-subnav .review-btn{border:1px solid var(--line);border-radius:5px;margin:8px 0;padding:0 14px}
+.bv-subnav .browse{border:1px solid var(--line);border-radius:5px;padding:7px 12px;align-self:center;color:var(--navy-800);font-weight:600;font-size:13.5px;text-decoration:none;display:flex;align-items:center;gap:4px}
+.bv-subnav .browse:hover{text-decoration:none;color:var(--teal-700)}
+.bv-search{display:flex;align-items:center;border:1px solid var(--line);border-radius:5px;overflow:hidden;align-self:center}
+.bv-search input{border:none;padding:7px 10px;font:inherit;width:150px;outline:none;font-size:13px}
+.bv-search button{border:none;background:var(--bg);padding:8px 10px;cursor:pointer;color:var(--muted);display:grid;place-items:center}
+.bv-search button svg{width:15px;height:15px}
+.bv-subnav .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.icon-btn{background:none;border:none;cursor:pointer;color:#cdd9e4;padding:6px;border-radius:8px;display:grid;place-items:center}
+.icon-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.icon-btn svg{width:20px;height:20px;display:block}
+.panel{position:fixed;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 40px rgba(16,42,67,.18);z-index:30;overflow:hidden;width:200px}
+.panel a{display:block;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:600;color:var(--navy-800);text-decoration:none;font-size:13.5px}
+.panel a:hover{background:var(--bg)}
+.panel a:last-child{border-bottom:none}
 .bv-main{flex:1}
 .bv-content{padding:22px 26px;max-width:1320px;margin:0 auto;width:100%}
 .bv-footer{background:var(--navy-900);color:#c9d4de;margin-top:32px}
@@ -70,11 +85,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:14p
 .bv-footer a:hover{color:#fff}
 .bv-footer-bar{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:14px;font-size:12px;color:#93a3b2}
 
-/* Role toggle in subnav */
+/* Role toggle (user menu) */
 .role-toggle{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden}
 .role-btn{border:none;background:#fff;padding:6px 12px;cursor:pointer;font:inherit;font-weight:600;font-size:12px;color:var(--muted)}
 .role-btn.active{background:var(--teal-600);color:#fff}
-.engine-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.03em}
 
 /* Cards & content */
 .card{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);padding:24px;box-shadow:var(--shadow)}
@@ -218,40 +232,44 @@ table.data tbody tr:hover{background:var(--bg)}
 
   <header class="bv-header">
     <div class="bv-logo">
-      <span class="logo-dot"></span>
-      BOARDVITALS
+      <svg viewBox="0 0 24 24" fill="none" style="width:30px;height:30px"><path d="M3 12h3l2-5 3 10 3-7 2 4h5" stroke="#4a85ef" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>BOARDVITALS</span>
     </div>
     <div class="bv-qb">
       <span class="lbl">Question Bank:</span>
       <select id="qb-select" title="Active question bank">
-        <option selected>USMLE Step 2 CK</option>
+        <option selected>Addiction Medicine</option>
+        <option>USMLE Step 2 CK</option>
         <option>Internal Medicine</option>
         <option>Cardiology</option>
       </select>
     </div>
-    <button class="h-btn" type="button">My CME/CE</button>
+    <button class="h-btn" type="button" id="cme-btn">My CME/CE</button>
     <button class="bv-exp" type="button" title="Plan Ends: June 3, 2028">EXTEND</button>
     <span class="bv-divider"></span>
     <a class="h-link" href="#">HELP CENTER</a>
+    <button class="icon-btn" type="button" id="cart-btn" title="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    </button>
     <span class="bv-divider"></span>
     <span class="bv-user" id="user-menu">ALEX KIM ▾</span>
   </header>
 
   <nav class="bv-subnav" id="subnav">
-    <div id="student-nav" style="display:flex;align-items:stretch;gap:4px">
-      <button class="nav-tab active" data-action="navigate" data-value="dashboard">Dashboard</button>
-      <button class="nav-tab" data-action="navigate" data-value="mastery">My Mastery</button>
-      <button class="nav-tab" data-action="navigate" data-value="forecast">Decay Forecast</button>
-      <button class="nav-tab" data-action="navigate" data-value="planner">Study Planner</button>
-    </div>
-    <div id="instructor-nav" style="display:none;align-items:stretch;gap:4px">
-      <button class="nav-tab active" data-action="navigate" data-value="instructor">Cohort View</button>
-    </div>
+    <button class="nav-tab" data-menu="admin" id="nav-admin" style="display:none">Admin <span class="caret">▼</span></button>
+    <button class="nav-tab active" data-action="navigate" data-value="dashboard">Dashboard</button>
+    <button class="nav-tab" data-menu="quiz">Quiz <span class="caret">▼</span></button>
+    <button class="nav-tab" data-menu="performance">Performance <span class="caret">▼</span></button>
+    <button class="nav-tab" data-action="navigate" data-value="mastery">Clinical Pearls</button>
+    <button class="nav-tab" data-action="navigate" data-value="planner">My CME/CE</button>
     <div class="right">
-      <span class="engine-badge"><span class="logo-dot" style="width:6px;height:6px"></span> AI Mastery Engine</span>
-      <div class="role-toggle">
-        <button class="role-btn active" data-action="set-role" data-value="student">Student</button>
-        <button class="role-btn" data-action="set-role" data-value="instructor">Instructor</button>
+      <button class="review-btn nav-tab" data-action="start-quiz" data-value="c1">Practice Exams</button>
+      <button class="browse nav-tab" data-menu="browse" type="button">Browse Questions <span class="caret">▼</span></button>
+      <div class="bv-search">
+        <input id="q-search" placeholder="Search Questions" />
+        <button type="button" id="q-search-btn" title="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
       </div>
     </div>
   </nav>
@@ -451,12 +469,14 @@ function subjectRiskDistribution() {
   const needsImp = S.concepts.filter(c => c.state === 'Developing').length;
   const atRisk = S.concepts.filter(c => c.state === 'Fragile' || c.state === 'Emerging').length;
   const pct = n => Math.round((n / total) * 100);
-  const dist = [
-    { category: 'On Track', percent: pct(onTrack), color: 'good' },
-    { category: 'Needs Improvement', percent: pct(needsImp), color: 'warn' },
-    { category: 'At Risk', percent: pct(atRisk), color: 'risk' },
-  ].filter(d => d.percent > 0);
-  return dist.length ? dist : [{ category: 'Not Enough Data', percent: 100, color: 'muted' }];
+  const onPct = pct(onTrack), needPct = pct(needsImp), riskPct = pct(atRisk);
+  const nedPct = Math.max(0, 100 - onPct - needPct - riskPct);
+  return [
+    { category: 'On Track', percent: onPct, color: 'good' },
+    { category: 'Needs Improvement', percent: needPct, color: 'warn' },
+    { category: 'At Risk', percent: riskPct, color: 'risk' },
+    { category: 'Not Enough Data', percent: nedPct, color: 'muted' },
+  ];
 }
 function conceptStatusCounts() {
   return {
@@ -499,17 +519,54 @@ function showToast(msg) {
 // ============================================================
 // RENDER SIDEBAR NAV ACTIVE STATE
 // ============================================================
+function closeMenus() { document.getElementById('dropdown')?.remove(); }
+
+const NAV_MENUS = {
+  admin: [{ label: 'Cohort View', page: 'instructor' }],
+  quiz: [{ label: 'My Mastery', page: 'mastery' }, { label: 'Study Planner', page: 'planner' }],
+  performance: [{ label: 'Decay Forecast', page: 'forecast' }, { label: 'My Mastery', page: 'mastery' }],
+  browse: [{ label: 'My Mastery', page: 'mastery' }, { label: 'Decay Forecast', page: 'forecast' }],
+};
+
+function openNavMenu(menuId, anchor) {
+  closeMenus();
+  const items = NAV_MENUS[menuId];
+  if (!items) return;
+  const rect = anchor.getBoundingClientRect();
+  const menu = document.createElement('div');
+  menu.className = 'panel';
+  menu.id = 'dropdown';
+  menu.style.cssText = `position:fixed;top:${rect.bottom+2}px;left:${rect.left}px`;
+  menu.innerHTML = items.map(i => `<a href="#" data-action="navigate" data-value="${i.page}">${i.label}</a>`).join('');
+  document.body.appendChild(menu);
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    closeMenus();
+    handleAction('navigate', a.dataset.value, e);
+  }));
+}
+
 function renderNav() {
-  const isInstructor = S.role==='instructor';
-  document.getElementById('student-nav').style.display = isInstructor?'none':'flex';
-  document.getElementById('instructor-nav').style.display = isInstructor?'flex':'none';
-  const navRoot = isInstructor ? document.getElementById('instructor-nav') : document.getElementById('student-nav');
-  navRoot.querySelectorAll('.nav-tab').forEach(el=>{
-    el.classList.toggle('active', el.dataset.value===S.page);
+  const isInstructor = S.role === 'instructor';
+  document.getElementById('nav-admin').style.display = isInstructor ? 'flex' : 'none';
+
+  const pageGroups = {
+    dashboard: ['dashboard'],
+    mastery: ['mastery'],
+    forecast: ['forecast'],
+    planner: ['planner'],
+    instructor: ['instructor'],
+  };
+
+  document.querySelectorAll('#subnav .nav-tab').forEach(el => {
+    if (el.dataset.menu) {
+      const pages = NAV_MENUS[el.dataset.menu]?.map(i => i.page) || [];
+      el.classList.toggle('active', pages.includes(S.page) || (el.dataset.menu === 'admin' && S.page === 'instructor'));
+    } else if (el.dataset.value) {
+      el.classList.toggle('active', el.dataset.value === S.page);
+    }
   });
-  document.querySelectorAll('.role-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.value===S.role);
-  });
+
   const name = isInstructor ? 'DR. SARAH CHEN' : 'ALEX KIM';
   document.getElementById('user-menu').textContent = name + ' ▾';
 }
@@ -522,17 +579,11 @@ function renderDashboard() {
   const recommended = fragile[0] || S.concepts[0];
   const atRiskAvailable = fragile.length > 0;
   const avg = avgMastery();
-  const readiness = examReadiness();
   const peer = peerPercentile();
   const riskDist = subjectRiskDistribution();
   const qs = conceptStatusCounts();
   const masteredCount = S.concepts.filter(c => c.state === 'Mastered').length;
   const scoreColor = avg >= 75 ? 'var(--good)' : avg >= 50 ? 'var(--warn)' : 'var(--risk)';
-  const plannerToday = [
-    { id: 'c1', name: 'Heart failure management', due: 'Today' },
-    { id: 'c10', name: 'Atrial fibrillation', due: 'Today' },
-    { id: 'c2', name: 'Acid-base disorders', due: 'Tomorrow' },
-  ];
 
   const quizRows = fragile.slice(0, 5).map(c => `
     <tr>
@@ -541,12 +592,11 @@ function renderDashboard() {
       <td><button class="btn-ghost" data-action="start-quiz" data-value="${c.id}" style="font-size:12px;padding:4px 10px;border-color:var(--info);color:var(--info)">Review</button></td>
     </tr>`).join('');
 
-  const assignmentRows = plannerToday.map(p => `
-    <tr>
-      <td><b>${p.name}</b><br><small class="text-muted">Due ${p.due}</small></td>
-      <td>AI scheduled</td>
+  const assignmentRows = `<tr>
+      <td><b>Addiction Medicine — Set 1</b><br><small class="text-muted">Due Jun 28, 2026</small></td>
+      <td>0/10 done</td>
       <td><span class="pill good">active</span></td>
-    </tr>`).join('');
+    </tr>`;
 
   const tabTable = S.dashTab === 'quizzes'
     ? (quizRows || '')
@@ -554,32 +604,26 @@ function renderDashboard() {
   const tabEmpty = S.dashTab === 'quizzes' && !quizRows;
 
   return `
-  ${!S.onboardingDismissed ? `
-  <div class="onboarding-compact">
-    <span><strong>AI Mastery Engine</strong> — tracks what you know, predicts what's fading, and recommends what to review next.</span>
-    <button data-action="dismiss-onboarding" style="background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:18px;line-height:1;flex-shrink:0">×</button>
-  </div>` : ''}
-
   <div class="dash-grid">
     <div>
       <div class="section-label">Start Quiz</div>
       <div class="panel-card">
         <div class="start-block">
           <h4>Custom Quiz</h4>
-          <p>Select any concept from your mastery map for a targeted review.</p>
-          <button class="btn btn-block" data-action="navigate" data-value="mastery" style="background:var(--info)">Browse My Mastery</button>
+          <p>Select your subjects, number of questions, and more.</p>
+          <button class="btn btn-block" data-action="navigate" data-value="mastery" style="background:var(--info)">New Custom Quiz</button>
         </div>
         <div class="start-block">
           <div class="between" style="align-items:center">
             <h4 style="margin:0">Quick Start Quiz</h4>
-            <button class="btn-secondary-outline" data-action="open-drawer" data-value="${recommended.id}">Details</button>
+            <button class="btn-secondary-outline" data-action="navigate" data-value="mastery">Edit</button>
           </div>
-          <p style="margin-top:6px">Recommended: ${recommended.name} — ${recommended.subject}, tutor mode.</p>
+          <p style="margin-top:6px">10 unanswered questions, all subjects, tutor mode.</p>
           <button class="btn btn-block" data-action="start-quiz" data-value="${recommended.id}" style="background:var(--info)">New Quick Start Quiz</button>
         </div>
         <div class="start-block">
           <h4>At Risk Quiz</h4>
-          <p>${fragile.length} fragile concepts, highest decay subjects, tutor mode.</p>
+          <p>10 questions, at risk subjects, tutor mode.</p>
           <button class="btn btn-block ${atRiskAvailable ? '' : 'disabled'}" ${atRiskAvailable ? `data-action="start-quiz" data-value="${fragile[0].id}"` : ''} ${atRiskAvailable ? '' : 'disabled'}
             style="background:${atRiskAvailable ? 'var(--info)' : '#9db8d6'}">New At Risk Quiz</button>
         </div>
@@ -593,7 +637,7 @@ function renderDashboard() {
           <div class="perf-cells">
             <div class="pc">
               <div class="donut" style="--p:${avg};background:conic-gradient(${scoreColor} calc(${avg}*1%), #e9edf1 0)">
-                <div class="hole"><div><small class="text-muted">Mastery</small><div class="big">${avg}%</div></div></div>
+                <div class="hole"><div><small class="text-muted">Score</small><div class="big">${avg}%</div></div></div>
               </div>
             </div>
             <div class="pc">
@@ -634,11 +678,11 @@ function renderDashboard() {
       <div class="panel-card cme-card">
         <div class="between" style="align-items:flex-start">
           <div>
-            <div class="type">Exam Readiness Target</div>
-            <div class="earned">${readiness}% of 80% Goal</div>
-            <div class="text-muted" style="font-size:12.5px">${masteredCount} concepts mastered · 42 days to exam</div>
+            <div class="type">AMA PRA Category 1™</div>
+            <div class="earned">${masteredCount} of 40 Earned</div>
+            <div class="text-muted" style="font-size:12.5px">0 Credits Already Claimed</div>
           </div>
-          <button class="btn-secondary-outline" data-action="navigate" data-value="planner">Open Planner</button>
+          <button class="btn-secondary-outline" data-action="navigate" data-value="planner">Claim CME Credits</button>
         </div>
       </div>
     </div>
@@ -1320,12 +1364,53 @@ document.getElementById('concept-drawer').addEventListener('click', e=>{
 // Delegation — drawer overlay
 document.getElementById('drawer-overlay').addEventListener('click', ()=>closeDrawer());
 
-// Delegation — subnav + role toggle
+// Delegation — subnav
 document.getElementById('subnav').addEventListener('click', e=>{
+  const menuBtn = e.target.closest('[data-menu]');
+  if (menuBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    openNavMenu(menuBtn.dataset.menu, menuBtn);
+    return;
+  }
   const t = e.target.closest('[data-action]');
   if(!t) return;
   handleAction(t.dataset.action, t.dataset.value, e);
 });
+
+document.getElementById('cme-btn').addEventListener('click', () => handleAction('navigate', 'planner'));
+document.getElementById('cart-btn').addEventListener('click', () => showToast('Cart (mock)'));
+document.getElementById('q-search-btn').addEventListener('click', () => handleAction('navigate', 'mastery'));
+document.getElementById('q-search').addEventListener('keydown', e => { if (e.key === 'Enter') handleAction('navigate', 'mastery'); });
+
+document.getElementById('user-menu').addEventListener('click', e => {
+  e.stopPropagation();
+  closeMenus();
+  const rect = e.currentTarget.getBoundingClientRect();
+  const menu = document.createElement('div');
+  menu.className = 'panel';
+  menu.id = 'dropdown';
+  menu.style.cssText = `position:fixed;top:${rect.bottom+8}px;right:18px;left:auto;width:240px`;
+  menu.innerHTML = `
+    <a href="#" data-action="navigate" data-value="dashboard">Dashboard</a>
+    <a href="#" data-action="navigate" data-value="mastery">My Mastery</a>
+    <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+      <div class="text-muted" style="font-size:11px;margin-bottom:8px">VIEW AS</div>
+      <div class="role-toggle">
+        <button class="role-btn ${S.role==='student'?'active':''}" data-action="set-role" data-value="student">Student</button>
+        <button class="role-btn ${S.role==='instructor'?'active':''}" data-action="set-role" data-value="instructor">Instructor</button>
+      </div>
+    </div>
+    <a href="#" style="color:var(--muted)">AI Mastery Engine</a>`;
+  document.body.appendChild(menu);
+  menu.querySelectorAll('[data-action]').forEach(a => a.addEventListener('click', ev => {
+    ev.preventDefault();
+    closeMenus();
+    handleAction(a.dataset.action, a.dataset.value, ev);
+  }));
+});
+
+document.addEventListener('click', () => closeMenus());
 
 // ============================================================
 // INIT
