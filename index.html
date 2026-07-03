@@ -3,191 +3,240 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BoardVitals · AI Mastery Engine</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>BoardVitals — AI Mastery Engine</title>
 <style>
+/* BoardVitals design system — aligned with rishiramesh/boardvitalsmock */
+:root {
+  --teal-900: #1b3950;
+  --teal-700: #1f4877;
+  --teal-600: #2c6dd4;
+  --teal-500: #4a85ef;
+  --teal-050: #ecf5fb;
+  --navy-900: #1b3950;
+  --navy-800: #214876;
+  --navy-700: #1f4877;
+  --ink: #1f2a37;
+  --muted: #5b6b7b;
+  --line: #e2e8ee;
+  --bg: #f4f7f9;
+  --card: #ffffff;
+  --good: #487b09;
+  --good-bg: #eaf2dd;
+  --warn: #c9851b;
+  --warn-bg: #fdf3e0;
+  --risk: #d24b4b;
+  --risk-bg: #fbeaea;
+  --info: #2c6dd4;
+  --shadow: 0 1px 2px rgba(16,42,67,.06), 0 4px 14px rgba(16,42,67,.07);
+  --radius: 10px;
+  --radius-sm: 7px;
+  --header-h: 62px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',-apple-system,sans-serif;background:#F1F5F9;color:#0F172A;min-height:100vh}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:240px;min-width:240px;background:#0F2044;color:white;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:30}
-.main{margin-left:240px;padding:28px;min-height:100vh}
-.logo-area{padding:20px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.08)}
-.logo-mark{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.logo-icon{width:32px;height:32px;background:#2563EB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:white;letter-spacing:-0.5px}
-.logo-name{font-weight:700;font-size:15px}
-.logo-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;display:flex;align-items:center;gap:6px}
-.live-dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
-.section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);padding:16px 16px 6px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:500;color:rgba(255,255,255,0.65);margin:1px 8px;border:none;background:none;width:calc(100% - 16px);text-align:left;font-family:inherit;transition:all 0.15s}
-.nav-item:hover{background:rgba(255,255,255,0.08);color:white}
-.nav-item.active{background:#2563EB;color:white}
-.nav-icon{width:18px;height:18px;flex-shrink:0;opacity:0.7}
-.nav-item.active .nav-icon{opacity:1}
-.sidebar-bottom{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,0.08)}
-.role-toggle{display:flex;background:rgba(255,255,255,0.08);border-radius:8px;padding:3px;margin-bottom:12px}
-.role-btn{flex:1;padding:6px;border-radius:6px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.15s}
-.role-btn.active{background:#2563EB;color:white}
-.user-info{display:flex;align-items:center;gap:10px}
-.avatar{width:32px;height:32px;background:#1B3A6B;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,0.8);flex-shrink:0}
-.user-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.85)}
-.user-role{font-size:11px;color:rgba(255,255,255,0.4)}
-.card{background:white;border-radius:12px;border:1px solid #E2E8F0;padding:24px}
-.card-sm{background:white;border-radius:12px;border:1px solid #E2E8F0;padding:16px}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* Top-nav shell */
+.bv-shell{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.bv-header{background:var(--navy-900);color:#fff;height:62px;display:flex;align-items:center;gap:22px;padding:0 22px;position:sticky;top:0;z-index:20}
+.bv-header .bv-logo{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.12em;font-size:17px;color:#fff}
+.bv-header .bv-logo .logo-dot{width:8px;height:8px;background:#6aa84f;border-radius:50%;animation:pulse 2s infinite}
+.bv-qb{display:flex;align-items:center;gap:10px;margin:0 auto}
+.bv-qb .lbl{color:#aebccb;font-size:13px}
+.bv-qb select{font:inherit;font-weight:700;color:var(--navy-900);background:#fff;border:none;border-radius:4px;padding:9px 34px 9px 14px;min-width:280px;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2311324d' stroke-width='3'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.bv-header .h-link{color:#cdd9e4;font-size:13px;font-weight:600;letter-spacing:.03em;text-decoration:none}
+.bv-header .h-link:hover{color:#fff}
+.bv-header .h-btn{border:1px solid rgba(255,255,255,.35);border-radius:5px;padding:7px 14px;background:transparent;color:#fff;font:inherit;font-weight:600;cursor:pointer;font-size:13px}
+.bv-header .h-btn:hover{background:rgba(255,255,255,.1)}
+.bv-exp{background:#6aa84f;color:#fff;font-weight:700;font-size:12px;padding:6px 14px;border-radius:4px;letter-spacing:.04em;border:none;cursor:pointer;font-family:inherit}
+.bv-exp:hover{background:#5c9445}
+.bv-divider{width:1px;height:20px;background:rgba(255,255,255,.25)}
+.bv-user{display:flex;align-items:center;gap:6px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.03em}
+.bv-subnav{background:#fff;border-bottom:1px solid var(--line);height:48px;display:flex;align-items:stretch;gap:4px;padding:0 18px;position:sticky;top:62px;z-index:18}
+.bv-subnav .nav-tab{display:flex;align-items:center;gap:5px;padding:0 14px;color:var(--navy-800);font-weight:600;font-size:13.5px;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer;font-family:inherit;text-decoration:none}
+.bv-subnav .nav-tab:hover{color:var(--teal-700)}
+.bv-subnav .nav-tab.active{border-bottom-color:var(--warn);color:var(--navy-900)}
+.bv-subnav .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.bv-main{flex:1}
+.bv-content{padding:22px 26px;max-width:1320px;margin:0 auto;width:100%}
+.bv-footer{background:var(--navy-900);color:#c9d4de;margin-top:32px}
+.bv-footer-inner{max-width:1320px;margin:0 auto;padding:40px 26px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+@media(max-width:860px){.bv-footer-inner{grid-template-columns:repeat(2,1fr)}}
+.bv-footer h4{color:#fff;font-size:12px;letter-spacing:.09em;margin:0 0 12px}
+.bv-footer ul{list-style:none;padding:0;margin:0}
+.bv-footer li{margin-bottom:9px}
+.bv-footer a{color:#c9d4de;font-size:13px;text-decoration:none}
+.bv-footer a:hover{color:#fff}
+.bv-footer-bar{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:14px;font-size:12px;color:#93a3b2}
+
+/* Role toggle in subnav */
+.role-toggle{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden}
+.role-btn{border:none;background:#fff;padding:6px 12px;cursor:pointer;font:inherit;font-weight:600;font-size:12px;color:var(--muted)}
+.role-btn.active{background:var(--teal-600);color:#fff}
+.engine-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.03em}
+
+/* Cards & content */
+.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);padding:24px;box-shadow:var(--shadow)}
+.card-sm{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);padding:16px;box-shadow:var(--shadow)}
 .page-header{margin-bottom:24px}
-.page-title{font-size:22px;font-weight:700;color:#0F2044}
-.page-sub{font-size:14px;color:#64748B;margin-top:4px}
-.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:100px;font-size:12px;font-weight:500;white-space:nowrap}
-.badge-mastered{background:#D1FAE5;color:#065F46}
-.badge-strong{background:#CFFAFE;color:#164E63}
-.badge-developing{background:#DBEAFE;color:#1E3A8A}
-.badge-emerging{background:#FEF3C7;color:#92400E}
-.badge-fragile{background:#FFEDD5;color:#9A3412}
-.badge-high{background:#FEE2E2;color:#991B1B}
-.badge-medium{background:#FEF3C7;color:#92400E}
-.badge-low{background:#D1FAE5;color:#065F46}
-.btn-primary{background:#2563EB;color:white;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.15s}
-.btn-primary:hover{background:#1D4ED8}
-.btn-secondary{background:white;color:#2563EB;border:1.5px solid #2563EB;border-radius:8px;padding:9px 18px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit}
-.btn-ghost{background:white;color:#475569;border:1px solid #E2E8F0;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s}
-.btn-ghost:hover{background:#F8FAFC;border-color:#CBD5E1}
-.btn-danger{background:#FEE2E2;color:#991B1B;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
-.signal-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;font-size:12px;color:#475569}
-.progress-bar{height:6px;background:#E2E8F0;border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.page-title{font-size:22px;font-weight:700;color:var(--navy-900)}
+.page-sub{font-size:14px;color:var(--muted);margin-top:4px}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:100px;font-size:12px;font-weight:600;white-space:nowrap}
+.badge-mastered{background:var(--good-bg);color:var(--good)}
+.badge-strong{background:var(--teal-050);color:var(--teal-700)}
+.badge-developing{background:var(--teal-050);color:var(--info)}
+.badge-emerging{background:var(--warn-bg);color:var(--warn)}
+.badge-fragile{background:var(--risk-bg);color:var(--risk)}
+.badge-high{background:var(--risk-bg);color:var(--risk)}
+.badge-medium{background:var(--warn-bg);color:var(--warn)}
+.badge-low{background:var(--good-bg);color:var(--good)}
+.btn-primary{background:var(--teal-600);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s}
+.btn-primary:hover{background:var(--teal-700)}
+.btn-secondary{background:#fff;color:var(--navy-800);border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:9px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-ghost{background:#fff;color:var(--muted);border:1px solid var(--line);border-radius:var(--radius-sm);padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .12s}
+.btn-ghost:hover{background:var(--bg);border-color:#cdd6df;color:var(--navy-800)}
+.btn-danger{background:var(--risk-bg);color:var(--risk);border:none;border-radius:var(--radius-sm);padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.signal-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--bg);border:1px solid var(--line);border-radius:6px;font-size:12px;color:var(--muted)}
+.progress-bar{height:6px;background:#eef2f6;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;border-radius:999px;transition:width .6s ease}
 table{width:100%;border-collapse:collapse}
-th{text-align:left;padding:11px 16px;font-size:11.5px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:0.05em;background:#F8FAFC;border-bottom:1px solid #E2E8F0;cursor:pointer;user-select:none;white-space:nowrap}
-th:hover{color:#2563EB}
-td{padding:13px 16px;font-size:14px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+th{text-align:left;padding:11px 16px;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;background:var(--bg);border-bottom:1px solid var(--line);cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:var(--teal-600)}
+td{padding:13px 16px;font-size:14px;border-bottom:1px solid var(--line);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:#FAFBFF}
-.filter-btn{padding:6px 14px;border-radius:100px;font-size:13px;font-weight:500;border:1.5px solid #E2E8F0;background:white;cursor:pointer;font-family:inherit;color:#64748B;transition:all 0.15s}
-.filter-btn.active,.filter-btn:hover{border-color:#2563EB;color:#2563EB;background:#EFF6FF}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,32,68,0.65);z-index:50;align-items:center;justify-content:center}
+tr:hover td{background:var(--bg)}
+.filter-btn{padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:inherit;color:var(--muted);transition:all .12s}
+.filter-btn.active,.filter-btn:hover{border-color:var(--teal-600);color:var(--teal-600);background:var(--teal-050)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(17,50,77,.45);z-index:50;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
-.modal-box{background:white;border-radius:16px;padding:36px;width:620px;max-width:94vw;max-height:92vh;overflow-y:auto}
-.drawer{position:fixed;top:0;right:0;height:100vh;width:480px;max-width:96vw;background:white;border-left:1px solid #E2E8F0;z-index:45;transform:translateX(100%);transition:transform 0.3s ease;overflow-y:auto}
+.modal-box{background:#fff;border-radius:var(--radius);padding:36px;width:620px;max-width:94vw;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.drawer{position:fixed;top:0;right:0;height:100vh;width:480px;max-width:96vw;background:#fff;border-left:1px solid var(--line);z-index:45;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;box-shadow:-4px 0 24px rgba(16,42,67,.1)}
 .drawer.open{transform:translateX(0)}
-.drawer-overlay{display:none;position:fixed;inset:0;z-index:44}
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(17,50,77,.35);z-index:44}
 .drawer-overlay.open{display:block}
-.toast{position:fixed;bottom:24px;right:24px;background:#0F2044;color:white;padding:14px 20px;border-radius:10px;font-size:14px;z-index:100;display:none;align-items:center;gap:10px;max-width:360px;box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--navy-900);color:#fff;padding:12px 16px;border-radius:var(--radius-sm);font-size:14px;z-index:100;display:none;align-items:center;gap:10px;max-width:360px;box-shadow:var(--shadow)}
 .toast.show{display:flex}
-.option-btn{width:100%;text-align:left;padding:14px 16px;border:1.5px solid #E2E8F0;border-radius:8px;background:white;cursor:pointer;font-family:inherit;font-size:14px;margin-bottom:8px;transition:all 0.15s;line-height:1.4}
-.option-btn:hover:not([disabled]){border-color:#2563EB;background:#F0F7FF}
-.option-btn.correct{border-color:#059669;background:#D1FAE5;color:#065F46}
-.option-btn.incorrect{border-color:#DC2626;background:#FEE2E2;color:#991B1B}
-.option-btn.reveal-correct{border-color:#059669;background:#F0FDF4;color:#065F46}
+.option-btn{width:100%;text-align:left;padding:14px 16px;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-family:inherit;font-size:14px;margin-bottom:8px;transition:all .12s;line-height:1.4}
+.option-btn:hover:not([disabled]){border-color:var(--teal-500);background:var(--teal-050)}
+.option-btn.correct{border-color:var(--good);background:var(--good-bg);color:var(--good)}
+.option-btn.incorrect{border-color:var(--risk);background:var(--risk-bg);color:var(--risk)}
+.option-btn.reveal-correct{border-color:var(--good);background:var(--good-bg);color:var(--good)}
 .option-btn[disabled]{cursor:default}
-.onboarding-banner{background:linear-gradient(135deg,#0F2044 0%,#1B3A6B 100%);color:white;border-radius:12px;padding:20px 24px;margin-bottom:20px;position:relative}
-.forecast-row{border:1px solid #E2E8F0;border-radius:10px;margin-bottom:10px;overflow:hidden;background:white}
+.onboarding-banner{background:linear-gradient(160deg,var(--navy-900),var(--teal-700));color:#fff;border-radius:var(--radius);padding:20px 24px;margin-bottom:20px;position:relative}
+.forecast-row{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
 .forecast-row-header{padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.forecast-row-header:hover{background:#FAFBFF}
-.forecast-expanded{padding:16px;background:#F8FAFC;border-top:1px solid #E2E8F0}
-.decay-bar{height:8px;border-radius:4px;background:#E2E8F0;overflow:hidden;margin-top:6px}
-.intervention-panel{background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:16px;margin-top:12px}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.forecast-row-header:hover{background:var(--bg)}
+.forecast-expanded{padding:16px;background:var(--bg);border-top:1px solid var(--line)}
+.decay-bar{height:8px;border-radius:4px;background:#eef2f6;overflow:hidden;margin-top:6px}
+.intervention-panel{background:var(--warn-bg);border:1px solid #e8c98a;border-radius:var(--radius-sm);padding:16px;margin-top:12px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn 0.25s ease}
+.fade-in{animation:fadeIn .25s ease}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
-.flex{display:flex}
-.flex-col{display:flex;flex-direction:column}
-.items-center{align-items:center}
-.justify-between{justify-content:space-between}
-.gap-8{gap:8px}
-.gap-12{gap:12px}
-.gap-16{gap:16px}
-.mb-4{margin-bottom:4px}
-.mb-8{margin-bottom:8px}
-.mb-12{margin-bottom:12px}
-.mb-16{margin-bottom:16px}
-.mb-20{margin-bottom:20px}
-.mb-24{margin-bottom:24px}
-.mt-4{margin-top:4px}
-.mt-8{margin-top:8px}
-.mt-12{margin-top:12px}
-.mt-16{margin-top:16px}
-.text-xs{font-size:12px}
-.text-sm{font-size:13px}
-.text-base{font-size:14px}
-.text-lg{font-size:16px}
-.font-500{font-weight:500}
-.font-600{font-weight:600}
-.font-700{font-weight:700}
-.text-muted{color:#64748B}
-.text-navy{color:#0F2044}
-.text-blue{color:#2563EB}
-.text-green{color:#059669}
-.text-red{color:#DC2626}
-.text-amber{color:#D97706}
-.text-orange{color:#EA580C}
-.divider{height:1px;background:#F1F5F9;margin:12px 0}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}.bv-qb{display:none}}
+.flex{display:flex}.flex-col{display:flex;flex-direction:column}
+.items-center{align-items:center}.justify-between{justify-content:space-between}
+.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}
+.mb-4{margin-bottom:4px}.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}
+.mb-16{margin-bottom:16px}.mb-20{margin-bottom:20px}.mb-24{margin-bottom:24px}
+.mt-4{margin-top:4px}.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}
+.text-xs{font-size:12px}.text-sm{font-size:13px}.text-base{font-size:14px}.text-lg{font-size:16px}
+.font-500{font-weight:500}.font-600{font-weight:600}.font-700{font-weight:700}
+.text-muted{color:var(--muted)}.text-navy{color:var(--navy-900)}.text-blue{color:var(--info)}
+.text-green{color:var(--good)}.text-red{color:var(--risk)}.text-amber{color:var(--warn)}.text-orange{color:var(--warn)}
+.divider{height:1px;background:var(--line);margin:12px 0}
 </style>
 </head>
 <body>
-<div class="layout">
+<div class="bv-shell">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo-area">
-      <div class="logo-mark">
-        <div class="logo-icon">BV</div>
-        <div>
-          <div class="logo-name">BoardVitals</div>
-        </div>
-      </div>
-      <div class="logo-sub">
-        <div class="live-dot"></div>
-        AI Mastery Engine · live
-      </div>
+  <header class="bv-header">
+    <div class="bv-logo">
+      <span class="logo-dot"></span>
+      BOARDVITALS
     </div>
-
-    <div class="section-label" id="nav-label-student">Student</div>
-    <div id="student-nav">
-      <button class="nav-item active" data-action="navigate" data-value="dashboard">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        Dashboard
-      </button>
-      <button class="nav-item" data-action="navigate" data-value="mastery">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        My Mastery
-      </button>
-      <button class="nav-item" data-action="navigate" data-value="forecast">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Decay Forecast
-      </button>
-      <button class="nav-item" data-action="navigate" data-value="planner">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Study Planner
-      </button>
+    <div class="bv-qb">
+      <span class="lbl">Question Bank:</span>
+      <select id="qb-select" title="Active question bank">
+        <option selected>USMLE Step 2 CK</option>
+        <option>Internal Medicine</option>
+        <option>Cardiology</option>
+      </select>
     </div>
+    <button class="h-btn" type="button">My CME/CE</button>
+    <button class="bv-exp" type="button" title="Plan Ends: June 3, 2028">EXTEND</button>
+    <span class="bv-divider"></span>
+    <a class="h-link" href="#">HELP CENTER</a>
+    <span class="bv-divider"></span>
+    <span class="bv-user" id="user-menu">ALEX KIM ▾</span>
+  </header>
 
-    <div class="section-label" id="nav-label-instructor" style="display:none">Instructor</div>
-    <div id="instructor-nav" style="display:none">
-      <button class="nav-item" data-action="navigate" data-value="instructor">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Cohort View
-      </button>
+  <nav class="bv-subnav" id="subnav">
+    <div id="student-nav" style="display:flex;align-items:stretch;gap:4px">
+      <button class="nav-tab active" data-action="navigate" data-value="dashboard">Dashboard</button>
+      <button class="nav-tab" data-action="navigate" data-value="mastery">My Mastery</button>
+      <button class="nav-tab" data-action="navigate" data-value="forecast">Decay Forecast</button>
+      <button class="nav-tab" data-action="navigate" data-value="planner">Study Planner</button>
     </div>
-
-    <div class="sidebar-bottom">
-      <div class="role-toggle mb-12">
+    <div id="instructor-nav" style="display:none;align-items:stretch;gap:4px">
+      <button class="nav-tab active" data-action="navigate" data-value="instructor">Cohort View</button>
+    </div>
+    <div class="right">
+      <span class="engine-badge"><span class="logo-dot" style="width:6px;height:6px"></span> AI Mastery Engine</span>
+      <div class="role-toggle">
         <button class="role-btn active" data-action="set-role" data-value="student">Student</button>
         <button class="role-btn" data-action="set-role" data-value="instructor">Instructor</button>
       </div>
-      <div class="user-info">
-        <div class="avatar" id="avatar-initials">AK</div>
-        <div>
-          <div class="user-name" id="user-display-name">Alex Kim</div>
-          <div class="user-role" id="user-display-role">USMLE Step 2 CK</div>
-        </div>
+    </div>
+  </nav>
+
+  <main class="bv-main">
+    <div class="bv-content">
+      <div id="main-content" class="fade-in"></div>
+    </div>
+  </main>
+
+  <footer class="bv-footer">
+    <div class="bv-footer-inner">
+      <div>
+        <h4>SUPPORT</h4>
+        <ul>
+          <li><a href="#">Customer Support</a></li>
+          <li><a href="#">Help FAQs</a></li>
+          <li><a href="#">support@boardvitals.com</a></li>
+          <li><a href="#">(877) 221-1529</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="#">About BoardVitals</a></li>
+          <li><a href="#">Testimonials</a></li>
+          <li><a href="#">Institutions</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>RESOURCES</h4>
+        <ul>
+          <li><a href="#">BoardVitals Blog</a></li>
+          <li><a href="#">What is CME?</a></li>
+          <li><a href="#">CME Coach</a></li>
+          <li><a href="#">Understanding the NCLEX®</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MOBILE APP</h4>
+        <ul>
+          <li><a href="#">App Store</a></li>
+          <li><a href="#">Google Play</a></li>
+        </ul>
       </div>
     </div>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="main">
-    <div id="main-content" class="fade-in"></div>
-  </main>
+    <div class="bv-footer-bar">© 2026 BoardVitals · AI Mastery Engine</div>
+  </footer>
 </div>
 
 <!-- Quiz Modal -->
@@ -205,7 +254,7 @@ tr:hover td{background:#FAFBFF}
 
 <!-- Toast -->
 <div class="toast" id="toast">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6aa84f" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
   <span id="toast-text"></span>
 </div>
 
@@ -288,19 +337,19 @@ function stateBadge(state) {
   return `<span class="badge ${map[state]||'badge-developing'}">${state}</span>`;
 }
 function stateColor(state) {
-  const map = {Mastered:'#059669',Strong:'#0891B2',Developing:'#2563EB',Emerging:'#D97706',Fragile:'#EA580C'};
-  return map[state]||'#2563EB';
+  const map = {Mastered:'#487b09',Strong:'#2c6dd4',Developing:'#2c6dd4',Emerging:'#c9851b',Fragile:'#d24b4b'};
+  return map[state]||'#2c6dd4';
 }
-function decayColor(d) { return d>60?'#DC2626':d>35?'#D97706':'#059669'; }
+function decayColor(d) { return d>60?'#d24b4b':d>35?'#c9851b':'#487b09'; }
 function decayBadge(d) {
   if(d>60) return '<span class="badge badge-high">High risk</span>';
   if(d>35) return '<span class="badge badge-medium">Medium risk</span>';
   return '<span class="badge badge-low">Low risk</span>';
 }
 function trendIcon(t) {
-  if(t==='up') return '<span style="color:#059669;font-size:13px;">↑ Rising</span>';
-  if(t==='down') return '<span style="color:#DC2626;font-size:13px;">↓ Falling</span>';
-  return '<span style="color:#64748B;font-size:13px;">→ Stable</span>';
+  if(t==='up') return '<span style="color:#487b09;font-size:13px;">↑ Rising</span>';
+  if(t==='down') return '<span style="color:#d24b4b;font-size:13px;">↓ Falling</span>';
+  return '<span style="color:#5b6b7b;font-size:13px;">→ Stable</span>';
 }
 function sparkline(history, w=80, h=28) {
   const min=Math.min(...history), max=Math.max(...history), range=max-min||1;
@@ -310,8 +359,8 @@ function sparkline(history, w=80, h=28) {
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   }).join(' ');
   const rising=history[history.length-1]>=history[0];
-  const color=rising?'#059669':'#DC2626';
-  const fill=rising?'rgba(5,150,105,0.08)':'rgba(220,38,38,0.08)';
+  const color=rising?'#487b09':'#d24b4b';
+  const fill=rising?'rgba(72,123,9,0.08)':'rgba(210,75,75,0.08)';
   const last=history[history.length-1];
   const lastX=w, lastY=h-((last-min)/range)*(h-4)+2;
   const firstY=h-((history[0]-min)/range)*(h-4)+2;
@@ -343,26 +392,18 @@ function showToast(msg) {
 // RENDER SIDEBAR NAV ACTIVE STATE
 // ============================================================
 function renderNav() {
-  document.querySelectorAll('.nav-item').forEach(el=>{
+  const isInstructor = S.role==='instructor';
+  document.getElementById('student-nav').style.display = isInstructor?'none':'flex';
+  document.getElementById('instructor-nav').style.display = isInstructor?'flex':'none';
+  const navRoot = isInstructor ? document.getElementById('instructor-nav') : document.getElementById('student-nav');
+  navRoot.querySelectorAll('.nav-tab').forEach(el=>{
     el.classList.toggle('active', el.dataset.value===S.page);
   });
-  const isInstructor = S.role==='instructor';
-  document.getElementById('student-nav').style.display = isInstructor?'none':'block';
-  document.getElementById('instructor-nav').style.display = isInstructor?'block':'none';
-  document.getElementById('nav-label-student').style.display = isInstructor?'none':'block';
-  document.getElementById('nav-label-instructor').style.display = isInstructor?'block':'none';
   document.querySelectorAll('.role-btn').forEach(b=>{
     b.classList.toggle('active', b.dataset.value===S.role);
   });
-  if(S.role==='instructor') {
-    document.getElementById('avatar-initials').textContent='DR';
-    document.getElementById('user-display-name').textContent='Dr. Sarah Chen';
-    document.getElementById('user-display-role').textContent='Course Director';
-  } else {
-    document.getElementById('avatar-initials').textContent='AK';
-    document.getElementById('user-display-name').textContent='Alex Kim';
-    document.getElementById('user-display-role').textContent='USMLE Step 2 CK';
-  }
+  const name = isInstructor ? 'DR. SARAH CHEN' : 'ALEX KIM';
+  document.getElementById('user-menu').textContent = name + ' ▾';
 }
 
 // ============================================================
@@ -392,9 +433,9 @@ function renderDashboard() {
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
     <div>
       <div class="text-xs font-600 text-muted mb-4" style="text-transform:uppercase;letter-spacing:0.05em">Good morning</div>
-      <div style="font-size:22px;font-weight:700;color:#0F2044">Alex Kim</div>
+      <div style="font-size:22px;font-weight:700;color:#1b3950">Alex Kim</div>
     </div>
-    <div style="font-size:13px;color:#D97706;background:#FEF3C7;padding:6px 14px;border-radius:8px;font-weight:500">📅 42 days to exam</div>
+    <div style="font-size:13px;color:#c9851b;background:#fdf3e0;padding:6px 14px;border-radius:8px;font-weight:500">📅 42 days to exam</div>
   </div>
 
   <div class="grid-2 mb-16">
@@ -403,8 +444,8 @@ function renderDashboard() {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
         <div>
           <div class="text-xs font-600 text-muted mb-4" style="text-transform:uppercase;letter-spacing:0.05em">Overall Mastery</div>
-          <div style="font-size:42px;font-weight:700;color:#0F2044;line-height:1">${avg}<span style="font-size:20px;color:#94A3B8">%</span></div>
-          <div style="font-size:12px;color:#D97706;margin-top:4px">3 concepts pulling this down</div>
+          <div style="font-size:42px;font-weight:700;color:#1b3950;line-height:1">${avg}<span style="font-size:20px;color:#93a3b2">%</span></div>
+          <div style="font-size:12px;color:#c9851b;margin-top:4px">3 concepts pulling this down</div>
         </div>
         <div style="text-align:right">
           <div class="text-xs text-muted">12 concepts tracked</div>
@@ -413,24 +454,24 @@ function renderDashboard() {
       </div>
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:14px">
         ${stateCounts.map(({s,n})=>`
-        <div style="text-align:center;padding:8px 4px;background:#F8FAFC;border-radius:8px">
+        <div style="text-align:center;padding:8px 4px;background:#f4f7f9;border-radius:8px">
           <div style="font-size:20px;font-weight:700;color:${stateColor(s)}">${n}</div>
-          <div style="font-size:10px;color:#94A3B8;margin-top:2px">${s}</div>
+          <div style="font-size:10px;color:#93a3b2;margin-top:2px">${s}</div>
         </div>`).join('')}
       </div>
       <div class="progress-bar">
-        <div class="progress-fill" style="width:${avg}%;background:linear-gradient(90deg,#2563EB,#06B6D4)"></div>
+        <div class="progress-fill" style="width:${avg}%;background:linear-gradient(90deg,#2c6dd4,#4a85ef)"></div>
       </div>
     </div>
 
     <!-- Next Best Action -->
-    <div class="card" style="border:1.5px solid #2563EB;background:#F0F7FF">
+    <div class="card" style="border:1.5px solid #2c6dd4;background:#ecf5fb">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-        <div style="width:8px;height:8px;background:#2563EB;border-radius:50%;animation:pulse 2s infinite"></div>
+        <div style="width:8px;height:8px;background:#2c6dd4;border-radius:50%;animation:pulse 2s infinite"></div>
         <span class="text-xs font-600 text-blue" style="text-transform:uppercase;letter-spacing:0.06em">Next best action</span>
       </div>
-      <div style="font-size:17px;font-weight:600;color:#0F2044;margin-bottom:6px">${recommended.name}</div>
-      <div style="font-size:13px;color:#64748B;margin-bottom:14px">${recommended.subject}</div>
+      <div style="font-size:17px;font-weight:600;color:#1b3950;margin-bottom:6px">${recommended.name}</div>
+      <div style="font-size:13px;color:#5b6b7b;margin-bottom:14px">${recommended.subject}</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
         <span class="signal-chip">⏱ ${recommended.daysSince}d since last correct</span>
         <span class="signal-chip" style="color:${decayColor(recommended.decay)}">📉 ${recommended.decay}% decay risk</span>
@@ -448,7 +489,7 @@ function renderDashboard() {
         <button data-action="navigate" data-value="forecast" class="btn-ghost" style="font-size:12px;padding:5px 12px">See all →</button>
       </div>
       ${fragile.map(c=>`
-      <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #F1F5F9">
+      <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #f4f7f9">
         <div style="flex:1;min-width:0">
           <div style="font-weight:500;font-size:14px">${c.name}</div>
           <div class="text-xs text-muted mt-4">${c.subject} · Last correct ${c.daysSince}d ago</div>
@@ -462,15 +503,15 @@ function renderDashboard() {
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="card">
         <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">Exam readiness</div>
-        <div style="font-size:36px;font-weight:700;color:#0F2044">68<span style="font-size:18px;color:#94A3B8">%</span></div>
+        <div style="font-size:36px;font-weight:700;color:#1b3950">68<span style="font-size:18px;color:#93a3b2">%</span></div>
         <div class="text-xs text-amber mt-4 mb-12">Fix fragile topics to reach 80%</div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width:68%;background:#D97706"></div>
+          <div class="progress-fill" style="width:68%;background:#c9851b"></div>
         </div>
       </div>
       <div class="card">
         <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">vs. Peers</div>
-        <div style="font-size:32px;font-weight:700;color:#059669">Top 34%</div>
+        <div style="font-size:32px;font-weight:700;color:#487b09">Top 34%</div>
         <div class="text-xs text-muted mt-4">Stronger than avg. on Cardiology</div>
       </div>
       <div class="card">
@@ -507,7 +548,7 @@ function renderMastery() {
   </div>
 
   <!-- Legend -->
-  <div class="card mb-16" style="background:#F8FAFC;padding:14px 20px">
+  <div class="card mb-16" style="background:#f4f7f9;padding:14px 20px">
     <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
       <div class="text-xs font-600 text-muted" style="text-transform:uppercase;letter-spacing:0.05em">State legend</div>
       ${legend.map(({s,def})=>`
@@ -524,7 +565,7 @@ function renderMastery() {
   </div>
 
   <!-- Table -->
-  <div style="background:white;border-radius:12px;border:1px solid #E2E8F0;overflow:hidden">
+  <div style="background:white;border-radius:12px;border:1px solid #e2e8ee;overflow:hidden">
     <table>
       <thead>
         <tr>
@@ -554,14 +595,14 @@ function renderMastery() {
               <div class="progress-bar" style="width:56px"><div class="progress-fill" style="width:${c.mastery}%;background:${stateColor(c.state)}"></div></div>
             </div>
           </td>
-          <td style="font-weight:500;color:#475569">${c.confidence}%</td>
+          <td style="font-weight:500;color:#5b6b7b">${c.confidence}%</td>
           <td style="font-weight:600;color:${decayColor(c.decay)}">${c.decay}%</td>
           <td class="text-sm text-muted">${c.daysSince}d ago</td>
           <td>${trendIcon(c.trend)}</td>
           <td>
             <div style="display:flex;gap:6px">
               <button class="btn-ghost" data-action="open-drawer" data-value="${c.id}" style="font-size:12px;padding:5px 10px">Details</button>
-              <button class="btn-ghost" data-action="start-quiz" data-value="${c.id}" style="font-size:12px;padding:5px 10px;color:#2563EB;border-color:#2563EB">Review</button>
+              <button class="btn-ghost" data-action="start-quiz" data-value="${c.id}" style="font-size:12px;padding:5px 10px;color:#2c6dd4;border-color:#2c6dd4">Review</button>
             </div>
           </td>
         </tr>`).join('')}
@@ -580,13 +621,13 @@ function renderForecast() {
     <div class="page-sub">Topics the AI predicts will fade before your exam — ordered by urgency</div>
   </div>
 
-  <div class="card mb-16" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border-color:#FED7AA;padding:16px 20px">
+  <div class="card mb-16" style="background:linear-gradient(135deg,#fdf3e0,#fdf3e0);border-color:#e8c98a;padding:16px 20px">
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
-        <div style="font-weight:600;font-size:15px;color:#9A3412">${high} concepts at high risk of fading</div>
+        <div style="font-weight:600;font-size:15px;color:#8a6410">${high} concepts at high risk of fading</div>
         <div class="text-sm text-muted mt-4">Review these first — memory is still recoverable before it falls further</div>
       </div>
-      <button class="btn-primary" data-action="start-quiz" data-value="${sorted[0].id}" style="background:#EA580C;white-space:nowrap">Review highest risk →</button>
+      <button class="btn-primary" data-action="start-quiz" data-value="${sorted[0].id}" style="background:#c9851b;white-space:nowrap">Review highest risk →</button>
     </div>
   </div>
 
@@ -612,28 +653,28 @@ function renderForecast() {
           <div class="decay-bar" style="width:80px">
             <div style="height:8px;border-radius:4px;width:${c.decay}%;background:${decayColor(c.decay)}"></div>
           </div>
-          <span style="color:#94A3B8;font-size:16px">${isOpen?'▲':'▼'}</span>
+          <span style="color:#93a3b2;font-size:16px">${isOpen?'▲':'▼'}</span>
         </div>
       </div>
       ${isOpen?`
       <div class="forecast-expanded">
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
-          <div style="background:white;border-radius:8px;padding:12px;border:1px solid #E2E8F0">
+          <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e2e8ee">
             <div class="text-xs text-muted mb-4">Time since last correct</div>
-            <div style="font-weight:700;font-size:18px;color:#0F2044">${c.daysSince} days</div>
+            <div style="font-weight:700;font-size:18px;color:#1b3950">${c.daysSince} days</div>
           </div>
-          <div style="background:white;border-radius:8px;padding:12px;border:1px solid #E2E8F0">
+          <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e2e8ee">
             <div class="text-xs text-muted mb-4">Topic difficulty</div>
-            <div style="font-weight:700;font-size:18px;color:#0F2044">${difficultyLabel}</div>
+            <div style="font-weight:700;font-size:18px;color:#1b3950">${difficultyLabel}</div>
           </div>
-          <div style="background:white;border-radius:8px;padding:12px;border:1px solid #E2E8F0">
+          <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e2e8ee">
             <div class="text-xs text-muted mb-4">Total attempts</div>
-            <div style="font-weight:700;font-size:18px;color:#0F2044">${c.attempts}</div>
+            <div style="font-weight:700;font-size:18px;color:#1b3950">${c.attempts}</div>
           </div>
         </div>
-        <div style="background:white;border-radius:8px;padding:12px;border:1px solid #E2E8F0;margin-bottom:12px">
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e2e8ee;margin-bottom:12px">
           <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">Why this is flagged</div>
-          <div class="text-sm" style="color:#374151;line-height:1.6">${c.errorPattern}</div>
+          <div class="text-sm" style="color:#1f2a37;line-height:1.6">${c.errorPattern}</div>
         </div>
         <button class="btn-primary" data-action="start-quiz" data-value="${c.id}">Start review for this concept →</button>
       </div>`:''}
@@ -661,9 +702,9 @@ function renderPlanner() {
       <div class="page-title">Study Planner</div>
       <div class="page-sub">AI-generated plan based on your decay forecast and exam date</div>
     </div>
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:10px 16px;text-align:right">
+    <div style="background:#ecf5fb;border:1px solid #b8d4f0;border-radius:10px;padding:10px 16px;text-align:right">
       <div class="text-xs text-muted">Days to exam</div>
-      <div style="font-size:28px;font-weight:700;color:#2563EB">42</div>
+      <div style="font-size:28px;font-weight:700;color:#2c6dd4">42</div>
     </div>
   </div>
 
@@ -677,15 +718,15 @@ function renderPlanner() {
       <button class="btn-primary" data-action="start-quiz" data-value="c1">Start today's first review →</button>
     </div>
     ${today.map((t,i)=>`
-    <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#F8FAFC;border-radius:10px;margin-bottom:8px;border:1px solid #F1F5F9">
-      <div style="width:28px;height:28px;background:#2563EB;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0">${i+1}</div>
+    <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#f4f7f9;border-radius:10px;margin-bottom:8px;border:1px solid #f4f7f9">
+      <div style="width:28px;height:28px;background:#2c6dd4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0">${i+1}</div>
       <div style="flex:1">
         <div style="font-weight:500;font-size:14px">${t.concept}</div>
         <div class="text-xs text-muted mt-2">${t.subject}</div>
       </div>
       <span class="badge badge-high" style="flex-shrink:0">${t.impact} impact</span>
       <div style="font-size:13px;font-weight:600;color:${decayColor(t.decay)};flex-shrink:0">${t.decay}% decay</div>
-      <div style="color:#64748B;font-size:13px;flex-shrink:0">~${t.time} min</div>
+      <div style="color:#5b6b7b;font-size:13px;flex-shrink:0">~${t.time} min</div>
       <button class="btn-ghost" data-action="start-quiz" data-value="${t.id}" style="font-size:12px;padding:6px 12px;flex-shrink:0">Review</button>
     </div>`).join('')}
   </div>
@@ -695,9 +736,9 @@ function renderPlanner() {
     <div style="font-weight:700;font-size:16px;margin-bottom:16px">This week</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
     ${week.map(t=>`
-    <div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #E2E8F0;border-radius:8px;background:white">
+    <div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #e2e8ee;border-radius:8px;background:white">
       <div style="text-align:center;flex-shrink:0">
-        <div style="font-size:11px;color:#94A3B8;font-weight:500">${t.day}</div>
+        <div style="font-size:11px;color:#93a3b2;font-weight:500">${t.day}</div>
       </div>
       <div style="flex:1;min-width:0">
         <div style="font-weight:500;font-size:13px">${t.concept}</div>
@@ -709,10 +750,10 @@ function renderPlanner() {
   </div>
 
   <!-- Safe to skip -->
-  <div class="card" style="background:#F0FDF4;border-color:#A7F3D0">
-    <div style="font-weight:600;font-size:14px;color:#065F46;margin-bottom:12px">✓ Safe to skip this week</div>
+  <div class="card" style="background:#eaf2dd;border-color:#c5ddb0">
+    <div style="font-weight:600;font-size:14px;color:#487b09;margin-bottom:12px">✓ Safe to skip this week</div>
     <div style="display:flex;flex-wrap:wrap;gap:8px">
-      ${safe.map(c=>`<div style="display:flex;align-items:center;gap:6px;background:white;border:1px solid #D1FAE5;border-radius:8px;padding:7px 12px">
+      ${safe.map(c=>`<div style="display:flex;align-items:center;gap:6px;background:white;border:1px solid #eaf2dd;border-radius:8px;padding:7px 12px">
         <span style="font-size:13px;font-weight:500">${c.name}</span>
         ${stateBadge(c.state)}
         <span class="text-xs text-muted">next review in ${c.reviewBy}</span>
@@ -733,21 +774,21 @@ function renderInstructor() {
   </div>
 
   <div class="grid-3 mb-16">
-    <div class="card-sm" style="border-left:3px solid #2563EB">
+    <div class="card-sm" style="border-left:3px solid #2c6dd4">
       <div class="text-xs text-muted mb-4" style="text-transform:uppercase;font-weight:600">Class avg. readiness</div>
-      <div style="font-size:28px;font-weight:700;color:#0F2044">${classAvg}%</div>
+      <div style="font-size:28px;font-weight:700;color:#1b3950">${classAvg}%</div>
     </div>
-    <div class="card-sm" style="border-left:3px solid #DC2626">
+    <div class="card-sm" style="border-left:3px solid #d24b4b">
       <div class="text-xs text-muted mb-4" style="text-transform:uppercase;font-weight:600">Needs intervention</div>
-      <div style="font-size:28px;font-weight:700;color:#DC2626">${flagged} students</div>
+      <div style="font-size:28px;font-weight:700;color:#d24b4b">${flagged} students</div>
     </div>
-    <div class="card-sm" style="border-left:3px solid #D97706">
+    <div class="card-sm" style="border-left:3px solid #c9851b">
       <div class="text-xs text-muted mb-4" style="text-transform:uppercase;font-weight:600">Top fragile topic</div>
-      <div style="font-size:20px;font-weight:700;color:#D97706">Cardiology</div>
+      <div style="font-size:20px;font-weight:700;color:#c9851b">Cardiology</div>
     </div>
   </div>
 
-  <div style="background:white;border-radius:12px;border:1px solid #E2E8F0;overflow:hidden;margin-bottom:16px">
+  <div style="background:white;border-radius:12px;border:1px solid #e2e8ee;overflow:hidden;margin-bottom:16px">
     <table>
       <thead>
         <tr>
@@ -764,17 +805,17 @@ function renderInstructor() {
         <tr>
           <td>
             <div style="display:flex;align-items:center;gap:10px">
-              <div style="width:32px;height:32px;background:${st.flagged?'#FEE2E2':'#EFF6FF'};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:${st.flagged?'#991B1B':'#1E40AF'};flex-shrink:0">${st.initials}</div>
+              <div style="width:32px;height:32px;background:${st.flagged?'#fbeaea':'#ecf5fb'};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:${st.flagged?'#d24b4b':'#214876'};flex-shrink:0">${st.initials}</div>
               <div>
                 <div style="font-weight:500;font-size:14px">${st.name}</div>
-                ${st.flagged?'<div class="text-xs" style="color:#DC2626">⚠ Intervention recommended</div>':'<div class="text-xs text-muted">On track</div>'}
+                ${st.flagged?'<div class="text-xs" style="color:#d24b4b">⚠ Intervention recommended</div>':'<div class="text-xs text-muted">On track</div>'}
               </div>
             </div>
           </td>
           <td>
             <div style="display:flex;align-items:center;gap:8px">
-              <div style="font-weight:600;color:${st.readiness>=75?'#059669':st.readiness>=55?'#D97706':'#DC2626'}">${st.readiness}%</div>
-              <div class="progress-bar" style="width:60px"><div class="progress-fill" style="width:${st.readiness}%;background:${st.readiness>=75?'#059669':st.readiness>=55?'#D97706':'#DC2626'}"></div></div>
+              <div style="font-weight:600;color:${st.readiness>=75?'#487b09':st.readiness>=55?'#c9851b':'#d24b4b'}">${st.readiness}%</div>
+              <div class="progress-bar" style="width:60px"><div class="progress-fill" style="width:${st.readiness}%;background:${st.readiness>=75?'#487b09':st.readiness>=55?'#c9851b':'#d24b4b'}"></div></div>
             </div>
           </td>
           <td style="font-weight:600;color:${decayColor(st.decay)}">${st.decay}%</td>
@@ -808,10 +849,10 @@ function renderInstructor() {
     <div style="font-weight:600;font-size:15px;margin-bottom:14px">Class-wide fragile concepts</div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
       ${classFragile.map((s,i)=>`
-      <div style="flex:1;min-width:140px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px">
-        <div style="font-weight:600;font-size:15px;color:#9A3412">${s}</div>
+      <div style="flex:1;min-width:140px;background:#fdf3e0;border:1px solid #e8c98a;border-radius:10px;padding:14px">
+        <div style="font-weight:600;font-size:15px;color:#8a6410">${s}</div>
         <div class="text-xs text-muted mt-4">${[4,3,3][i]} students affected</div>
-        <div class="progress-bar mt-8"><div class="progress-fill" style="width:${[75,60,55][i]}%;background:#EA580C"></div></div>
+        <div class="progress-bar mt-8"><div class="progress-fill" style="width:${[75,60,55][i]}%;background:#c9851b"></div></div>
       </div>`).join('')}
     </div>
   </div>`;
@@ -849,20 +890,20 @@ function renderQuiz() {
       <div style="font-size:20px;font-weight:700;margin-bottom:4px">${correct}/${total} correct</div>
       <div class="text-muted text-sm mb-24">${c.name}</div>
 
-      <div style="background:#F0F7FF;border:1.5px solid #BFDBFE;border-radius:12px;padding:20px;margin-bottom:20px">
+      <div style="background:#ecf5fb;border:1.5px solid #b8d4f0;border-radius:12px;padding:20px;margin-bottom:20px">
         <div class="text-xs font-600 text-muted mb-12" style="text-transform:uppercase">Mastery updated</div>
         <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px">
-          <div style="font-size:28px;font-weight:700;color:#64748B">${oldMastery}%</div>
-          <div style="font-size:24px;color:#2563EB">→</div>
+          <div style="font-size:28px;font-weight:700;color:#5b6b7b">${oldMastery}%</div>
+          <div style="font-size:24px;color:#2c6dd4">→</div>
           <div style="font-size:28px;font-weight:700;color:${stateColor(newState)}">${newMastery}%</div>
         </div>
-        ${gain>0?`<div style="font-size:13px;color:#059669">+${gain} points · State: ${newState}</div>`:`<div style="font-size:13px;color:#DC2626">Keep reviewing — more practice needed</div>`}
+        ${gain>0?`<div style="font-size:13px;color:#487b09">+${gain} points · State: ${newState}</div>`:`<div style="font-size:13px;color:#d24b4b">Keep reviewing — more practice needed</div>`}
       </div>
 
-      <div style="text-align:left;background:#F8FAFC;border-radius:10px;padding:16px;margin-bottom:20px">
+      <div style="text-align:left;background:#f4f7f9;border-radius:10px;padding:16px;margin-bottom:20px">
         ${questions.map((qq,i)=>`
-        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:${i<questions.length-1?'1px solid #E2E8F0':'none'}">
-          <div style="width:22px;height:22px;border-radius:50%;background:${q.answers[i]?'#D1FAE5':'#FEE2E2'};display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">${q.answers[i]?'✓':'✗'}</div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:${i<questions.length-1?'1px solid #e2e8ee':'none'}">
+          <div style="width:22px;height:22px;border-radius:50%;background:${q.answers[i]?'#eaf2dd':'#fbeaea'};display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">${q.answers[i]?'✓':'✗'}</div>
           <div class="text-sm" style="line-height:1.4">${qq.q.substring(0,80)}…</div>
         </div>`).join('')}
       </div>
@@ -881,7 +922,7 @@ function renderQuiz() {
       <div class="text-xs font-600 text-muted" style="text-transform:uppercase;letter-spacing:0.05em">${c.subject}</div>
       <div style="font-weight:600;font-size:15px">${c.name}</div>
     </div>
-    <button data-action="close-quiz" style="background:none;border:none;color:#94A3B8;cursor:pointer;font-size:22px;line-height:1">×</button>
+    <button data-action="close-quiz" style="background:none;border:none;color:#93a3b2;cursor:pointer;font-size:22px;line-height:1">×</button>
   </div>
 
   <div style="margin-bottom:6px;display:flex;justify-content:space-between">
@@ -889,16 +930,16 @@ function renderQuiz() {
     <span class="text-xs text-muted">${Math.round((q.qIndex/questions.length)*100)}% complete</span>
   </div>
   <div class="progress-bar mb-20" style="height:4px">
-    <div class="progress-fill" style="width:${progress}%;background:#2563EB"></div>
+    <div class="progress-fill" style="width:${progress}%;background:#2c6dd4"></div>
   </div>
 
-  <div style="font-size:15px;font-weight:500;line-height:1.65;margin-bottom:20px;color:#0F172A">${currentQ.q}</div>
+  <div style="font-size:15px;font-weight:500;line-height:1.65;margin-bottom:20px;color:#1f2a37">${currentQ.q}</div>
 
   <div id="options">
   ${currentQ.opts.map((opt,i)=>{
     const cls = q.answered ? (i===currentQ.correct ? 'correct reveal-correct' : (i===q.selectedOpt ? 'incorrect' : '')) : '';
-    const spanBg = q.answered&&i===currentQ.correct?'#059669':q.answered&&i===q.selectedOpt?'#DC2626':'#E2E8F0';
-    const spanColor = q.answered?(i===currentQ.correct||i===q.selectedOpt?'white':'#64748B'):'#64748B';
+    const spanBg = q.answered&&i===currentQ.correct?'#487b09':q.answered&&i===q.selectedOpt?'#d24b4b':'#e2e8ee';
+    const spanColor = q.answered?(i===currentQ.correct||i===q.selectedOpt?'white':'#5b6b7b'):'#5b6b7b';
     return `<button class="option-btn ${cls}" data-action="answer-quiz" data-value="${i}" ${q.answered?'disabled':''}>
       <span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${spanBg};color:${spanColor};font-size:11px;font-weight:600;text-align:center;line-height:22px;margin-right:10px;flex-shrink:0">${String.fromCharCode(65+i)}</span>${opt}
     </button>`;
@@ -906,14 +947,14 @@ function renderQuiz() {
   </div>
 
   ${q.answered?`
-  <div style="background:${q.answers[q.qIndex]?'#F0FDF4':'#FFF7ED'};border:1px solid ${q.answers[q.qIndex]?'#A7F3D0':'#FED7AA'};border-radius:10px;padding:16px;margin-top:14px">
+  <div style="background:${q.answers[q.qIndex]?'#eaf2dd':'#fdf3e0'};border:1px solid ${q.answers[q.qIndex]?'#c5ddb0':'#e8c98a'};border-radius:10px;padding:16px;margin-top:14px">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
       <span style="font-size:16px">${q.answers[q.qIndex]?'✅':'⚠️'}</span>
-      <span style="font-weight:600;font-size:14px;color:${q.answers[q.qIndex]?'#065F46':'#92400E'}">${q.answers[q.qIndex]?'Correct':'Incorrect'}</span>
-      ${!q.answers[q.qIndex]?`<span class="badge" style="background:${currentQ.type==='forgetting'?'#DBEAFE':'#FFEDD5'};color:${currentQ.type==='forgetting'?'#1E3A8A':'#9A3412'};font-size:11px">${currentQ.type==='forgetting'?'Forgetting risk':'Concept gap'}</span>`:''}
+      <span style="font-weight:600;font-size:14px;color:${q.answers[q.qIndex]?'#487b09':'#8a6410'}">${q.answers[q.qIndex]?'Correct':'Incorrect'}</span>
+      ${!q.answers[q.qIndex]?`<span class="badge" style="background:${currentQ.type==='forgetting'?'#ecf5fb':'#fdf3e0'};color:${currentQ.type==='forgetting'?'#1f4877':'#8a6410'};font-size:11px">${currentQ.type==='forgetting'?'Forgetting risk':'Concept gap'}</span>`:''}
     </div>
-    <div class="text-sm" style="line-height:1.65;color:#374151">${currentQ.explanation}</div>
-    ${!q.answers[q.qIndex]?`<div class="text-xs mt-8" style="color:#64748B">${currentQ.type==='forgetting'?'You may have understood this before — spaced repetition will help.':'Consider reviewing the underlying mechanism before moving on.'}</div>`:''}
+    <div class="text-sm" style="line-height:1.65;color:#1f2a37">${currentQ.explanation}</div>
+    ${!q.answers[q.qIndex]?`<div class="text-xs mt-8" style="color:#5b6b7b">${currentQ.type==='forgetting'?'You may have understood this before — spaced repetition will help.':'Consider reviewing the underlying mechanism before moving on.'}</div>`:''}
   </div>
   <button class="btn-primary" data-action="next-question" style="width:100%;margin-top:14px;padding:12px">${q.qIndex+1<questions.length?'Next question →':'See results'}</button>
   `:''}`;
@@ -932,34 +973,34 @@ function openDrawer(conceptId) {
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
     <div>
       <div class="text-xs text-muted mb-4">${c.subject}</div>
-      <div style="font-size:18px;font-weight:700;color:#0F2044;line-height:1.3">${c.name}</div>
+      <div style="font-size:18px;font-weight:700;color:#1b3950;line-height:1.3">${c.name}</div>
       <div style="margin-top:8px">${stateBadge(c.state)}</div>
     </div>
-    <button data-action="close-drawer" style="background:none;border:none;color:#94A3B8;cursor:pointer;font-size:22px;padding:4px">×</button>
+    <button data-action="close-drawer" style="background:none;border:none;color:#93a3b2;cursor:pointer;font-size:22px;padding:4px">×</button>
   </div>
 
   <div class="grid-2 mb-16">
-    <div style="background:#F8FAFC;border-radius:10px;padding:14px;border:1px solid #E2E8F0">
+    <div style="background:#f4f7f9;border-radius:10px;padding:14px;border:1px solid #e2e8ee">
       <div class="text-xs text-muted mb-4">Mastery</div>
       <div style="font-size:26px;font-weight:700;color:${stateColor(c.state)}">${c.mastery}%</div>
       <div style="margin-top:8px">${sparkline(c.history,100,32)}</div>
     </div>
-    <div style="background:#F8FAFC;border-radius:10px;padding:14px;border:1px solid #E2E8F0">
+    <div style="background:#f4f7f9;border-radius:10px;padding:14px;border:1px solid #e2e8ee">
       <div class="text-xs text-muted mb-4">Decay risk</div>
       <div style="font-size:26px;font-weight:700;color:${decayColor(c.decay)}">${c.decay}%</div>
       <div class="text-xs text-muted mt-4">Review by: <strong>${c.reviewBy}</strong></div>
     </div>
   </div>
 
-  <div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;margin-bottom:16px">
-    <div class="text-xs font-600 mb-6" style="text-transform:uppercase;color:#92400E">Error pattern</div>
-    <div class="text-sm" style="color:#374151;line-height:1.6">${c.errorPattern}</div>
+  <div style="background:#fdf3e0;border:1px solid #e8c98a;border-radius:10px;padding:14px;margin-bottom:16px">
+    <div class="text-xs font-600 mb-6" style="text-transform:uppercase;color:#8a6410">Error pattern</div>
+    <div class="text-sm" style="color:#1f2a37;line-height:1.6">${c.errorPattern}</div>
   </div>
 
   <div style="margin-bottom:16px">
     <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">Recent attempts (${c.attempts} total)</div>
     <div style="display:flex;gap:6px;align-items:center">
-      ${lastAttempts.map(r=>`<div style="width:30px;height:30px;border-radius:8px;background:${r==='✓'?'#D1FAE5':'#FEE2E2'};display:flex;align-items:center;justify-content:center;font-size:14px">${r}</div>`).join('')}
+      ${lastAttempts.map(r=>`<div style="width:30px;height:30px;border-radius:8px;background:${r==='✓'?'#eaf2dd':'#fbeaea'};display:flex;align-items:center;justify-content:center;font-size:14px">${r}</div>`).join('')}
       <div class="text-xs text-muted" style="margin-left:4px">last ${lastAttempts.length} shown</div>
     </div>
   </div>
@@ -967,15 +1008,15 @@ function openDrawer(conceptId) {
   <div style="margin-bottom:16px">
     <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">Confidence</div>
     <div style="display:flex;align-items:center;gap:10px">
-      <div class="progress-bar" style="flex:1;height:8px"><div class="progress-fill" style="width:${c.confidence}%;background:#7C3AED"></div></div>
-      <div style="font-weight:600;font-size:14px;color:#7C3AED">${c.confidence}%</div>
+      <div class="progress-bar" style="flex:1;height:8px"><div class="progress-fill" style="width:${c.confidence}%;background:#2c6dd4"></div></div>
+      <div style="font-weight:600;font-size:14px;color:#2c6dd4">${c.confidence}%</div>
     </div>
     <div class="text-xs text-muted mt-4">Based on answer speed and hesitation patterns</div>
   </div>
 
-  <div style="background:#F8FAFC;border-radius:10px;padding:14px;border:1px solid #E2E8F0;margin-bottom:20px">
+  <div style="background:#f4f7f9;border-radius:10px;padding:14px;border:1px solid #e2e8ee;margin-bottom:20px">
     <div class="text-xs font-600 text-muted mb-4" style="text-transform:uppercase">Recommended action</div>
-    <div class="text-sm" style="color:#374151;margin-bottom:10px">${c.state==='Fragile'||c.decay>55?'Immediate review recommended — memory is still recoverable but decaying fast.':c.state==='Mastered'?'On track — no action needed for 2+ weeks.':'Continue building — 2–3 more review sessions to reach Strong.'}</div>
+    <div class="text-sm" style="color:#1f2a37;margin-bottom:10px">${c.state==='Fragile'||c.decay>55?'Immediate review recommended — memory is still recoverable but decaying fast.':c.state==='Mastered'?'On track — no action needed for 2+ weeks.':'Continue building — 2–3 more review sessions to reach Strong.'}</div>
   </div>
 
   <button class="btn-primary" data-action="start-quiz" data-value="${c.id}" style="width:100%;padding:12px" onclick="closeDrawer()">Start review session →</button>`;
@@ -1140,8 +1181,8 @@ document.getElementById('concept-drawer').addEventListener('click', e=>{
 // Delegation — drawer overlay
 document.getElementById('drawer-overlay').addEventListener('click', ()=>closeDrawer());
 
-// Delegation — sidebar
-document.querySelector('.sidebar').addEventListener('click', e=>{
+// Delegation — subnav + role toggle
+document.getElementById('subnav').addEventListener('click', e=>{
   const t = e.target.closest('[data-action]');
   if(!t) return;
   handleAction(t.dataset.action, t.dataset.value, e);
