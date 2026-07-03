@@ -147,6 +147,70 @@ tr:hover td{background:var(--bg)}
 .text-muted{color:var(--muted)}.text-navy{color:var(--navy-900)}.text-blue{color:var(--info)}
 .text-green{color:var(--good)}.text-red{color:var(--risk)}.text-amber{color:var(--warn)}.text-orange{color:var(--warn)}
 .divider{height:1px;background:var(--line);margin:12px 0}
+
+/* Dashboard layout (boardvitalsmock) */
+.section-label{font-weight:700;color:var(--navy-900);font-size:14px;margin:0 0 10px}
+.dash-grid{display:grid;grid-template-columns:25% 75%;gap:0 24px;align-items:start}
+@media(max-width:1100px){.dash-grid{grid-template-columns:1fr}}
+.dash-bottom{display:grid;grid-template-columns:25% 1fr;gap:0 24px;margin-top:22px;align-items:stretch}
+@media(max-width:1100px){.dash-bottom{grid-template-columns:1fr}}
+.panel-card{background:#fff;border:1px solid var(--line);border-radius:6px}
+.joined{display:flex;align-items:stretch}
+.joined>.col-perf{flex:0 0 75%;max-width:75%}
+.joined>.col-qstatus{flex:0 0 25%;max-width:25%}
+.joined .panel-card{border-radius:0;height:100%}
+.joined>.col-perf .panel-card{border-radius:6px 0 0 6px;border-right-width:0}
+.joined>.col-qstatus .panel-card{border-radius:0 6px 6px 0}
+@media(max-width:1100px){
+  .joined{flex-direction:column}
+  .joined>.col-perf,.joined>.col-qstatus{flex:1 1 auto;max-width:100%}
+  .joined>.col-perf .panel-card{border-radius:6px 6px 0 0;border-right-width:1px;border-bottom-width:0}
+  .joined>.col-qstatus .panel-card{border-radius:0 0 6px 6px}
+}
+.perf-cells{display:flex;align-items:center}
+.perf-cells>.pc{flex:1;padding:6px 14px;text-align:center}
+.perf-cells>.pc+.pc{border-left:1px solid var(--line)}
+@media(max-width:860px){.perf-cells{flex-wrap:wrap}.perf-cells>.pc+.pc{border-left:none}}
+.start-block{padding:16px 18px;border-bottom:1px solid var(--line)}
+.start-block:last-child{border-bottom:none}
+.start-block h4{margin:0 0 2px;color:var(--navy-900);font-size:14px}
+.start-block p{margin:0 0 10px;color:var(--muted);font-size:12.5px}
+.peer-curve{position:relative;width:150px;height:96px;margin:0 auto}
+.risk-legend{font-size:12.5px;text-align:left}
+.risk-legend .ln{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.risk-badge{font-size:10px;font-weight:700;color:#fff;border-radius:10px;padding:1px 7px;min-width:34px;text-align:center}
+.risk-badge.good{background:var(--good)}.risk-badge.warn{background:var(--warn)}
+.risk-badge.risk{background:var(--risk)}.risk-badge.muted{background:#8a98a6}
+.qstatus .ln{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-top:1px solid var(--line)}
+.qstatus .ln:first-child{border-top:none}
+.qstatus .ln .k{font-weight:700;color:var(--navy-800)}
+.qstatus .ln .v{font-size:30px;font-weight:300;color:var(--navy-900)}
+.cme-card{padding:16px 18px}
+.cme-card .type{font-style:italic;color:var(--muted);font-size:12.5px}
+.cme-card .earned{font-size:17px;font-weight:700;color:var(--navy-900)}
+.bv-tabs{display:flex;gap:22px;border-bottom:1px solid var(--line);padding:0 18px}
+.bv-tabs button{background:none;border:none;padding:14px 2px;font:inherit;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.bv-tabs button.active{color:var(--navy-900);border-bottom-color:var(--warn)}
+.bv-tabrow-empty{text-align:center;color:var(--muted);padding:34px}
+.see-more{text-align:center;padding:12px;border-top:1px solid var(--line);color:var(--muted);font-weight:600}
+.donut{--p:0;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;position:relative;margin:0 auto}
+.donut .hole{width:96px;height:96px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
+.donut .hole .big{font-size:26px;font-weight:700;color:var(--navy-900)}
+.donut-wrap{display:flex;align-items:center;gap:12px;justify-content:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:600;cursor:pointer;border-radius:var(--radius-sm);padding:9px 16px;border:1px solid transparent;transition:.12s;font-family:inherit}
+.btn-block{width:100%;border:none;color:#fff;padding:10px 16px;font-size:13.5px}
+.btn-block.disabled{background:#9db8d6!important;cursor:default}
+.btn-secondary-outline{background:#fff;border:1px solid var(--info);color:var(--info);padding:4px 12px;font-size:12.5px}
+.row{display:flex;align-items:center;gap:12px}
+.between{display:flex;align-items:center;justify-content:space-between}
+table.data{width:100%;border-collapse:collapse;font-size:13.5px}
+table.data td{padding:12px 18px;border-bottom:1px solid var(--line)}
+table.data tr:last-child td{border-bottom:none}
+table.data tbody tr:hover{background:var(--bg)}
+.pill{display:inline-flex;align-items:center;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.pill.good{background:var(--good-bg);color:var(--good)}
+.pill.muted{background:#eef2f6;color:var(--muted)}
+.onboarding-compact{background:linear-gradient(160deg,var(--navy-900),var(--teal-700));color:#fff;border-radius:6px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}
 </style>
 </head>
 <body>
@@ -327,6 +391,7 @@ let S = {
   drawer: {open:false,conceptId:null},
   interventionStudentId: null,
   notification: null,
+  dashTab: 'quizzes',
 };
 
 // ============================================================
@@ -378,6 +443,49 @@ function masteryState(pct) {
 function avgMastery() {
   return Math.round(S.concepts.reduce((s,c)=>s+c.mastery,0)/S.concepts.length);
 }
+function examReadiness() { return 68; }
+function peerPercentile() { return 34; }
+function subjectRiskDistribution() {
+  const total = S.concepts.length || 1;
+  const onTrack = S.concepts.filter(c => c.state === 'Mastered' || c.state === 'Strong').length;
+  const needsImp = S.concepts.filter(c => c.state === 'Developing').length;
+  const atRisk = S.concepts.filter(c => c.state === 'Fragile' || c.state === 'Emerging').length;
+  const pct = n => Math.round((n / total) * 100);
+  const dist = [
+    { category: 'On Track', percent: pct(onTrack), color: 'good' },
+    { category: 'Needs Improvement', percent: pct(needsImp), color: 'warn' },
+    { category: 'At Risk', percent: pct(atRisk), color: 'risk' },
+  ].filter(d => d.percent > 0);
+  return dist.length ? dist : [{ category: 'Not Enough Data', percent: 100, color: 'muted' }];
+}
+function conceptStatusCounts() {
+  return {
+    answered: S.concepts.filter(c => c.attempts > 0).length,
+    unanswered: S.concepts.filter(c => c.state === 'Fragile' || c.decay > 55).length,
+    unseen: S.concepts.filter(c => c.state === 'Emerging').length,
+  };
+}
+function bellCurve(percentile) {
+  const x = 10 + (percentile / 100) * 130;
+  const y = 70 - Math.exp(-Math.pow((x - 75) / 32, 2)) * 52;
+  return `<svg viewBox="0 0 150 96" width="150" height="96">
+    <path d="M5 78 C 45 78, 55 18, 75 18 S 105 78, 145 78" fill="none" stroke="#c7d0d9" stroke-width="2.5"/>
+    <line x1="75" y1="8" x2="75" y2="80" stroke="#9aa7b4" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="#6aa84f"/>
+  </svg>`;
+}
+function riskDonut(dist) {
+  const colors = { good: '#487b09', warn: '#c9851b', risk: '#d24b4b', muted: '#8a98a6' };
+  let acc = 0;
+  const segs = dist.map(r => {
+    const start = acc;
+    acc += r.percent;
+    return `${colors[r.color] || colors.muted} ${start}% ${acc}%`;
+  });
+  const grad = segs.length ? segs.join(', ') : '#c2ccd5 0% 100%';
+  return `<div class="donut" style="background:conic-gradient(${grad});width:108px;height:108px">
+    <div class="hole" style="width:74px;height:74px"></div></div>`;
+}
 function getFragile() {
   return S.concepts.filter(c=>c.state==='Fragile'||c.decay>55).sort((a,b)=>b.decay-a.decay);
 }
@@ -410,114 +518,141 @@ function renderNav() {
 // PAGES
 // ============================================================
 function renderDashboard() {
-  const fragile = getFragile().slice(0,3);
+  const fragile = getFragile();
   const recommended = fragile[0] || S.concepts[0];
+  const atRiskAvailable = fragile.length > 0;
   const avg = avgMastery();
-  const stateCounts = ['Mastered','Strong','Developing','Emerging','Fragile'].map(s=>({s,n:S.concepts.filter(c=>c.state===s).length}));
+  const readiness = examReadiness();
+  const peer = peerPercentile();
+  const riskDist = subjectRiskDistribution();
+  const qs = conceptStatusCounts();
+  const masteredCount = S.concepts.filter(c => c.state === 'Mastered').length;
+  const scoreColor = avg >= 75 ? 'var(--good)' : avg >= 50 ? 'var(--warn)' : 'var(--risk)';
+  const plannerToday = [
+    { id: 'c1', name: 'Heart failure management', due: 'Today' },
+    { id: 'c10', name: 'Atrial fibrillation', due: 'Today' },
+    { id: 'c2', name: 'Acid-base disorders', due: 'Tomorrow' },
+  ];
+
+  const quizRows = fragile.slice(0, 5).map(c => `
+    <tr>
+      <td><b>${c.name}</b><br><small class="text-muted">${c.subject}</small></td>
+      <td>${c.mastery}% · ${c.decay}% decay</td>
+      <td><button class="btn-ghost" data-action="start-quiz" data-value="${c.id}" style="font-size:12px;padding:4px 10px;border-color:var(--info);color:var(--info)">Review</button></td>
+    </tr>`).join('');
+
+  const assignmentRows = plannerToday.map(p => `
+    <tr>
+      <td><b>${p.name}</b><br><small class="text-muted">Due ${p.due}</small></td>
+      <td>AI scheduled</td>
+      <td><span class="pill good">active</span></td>
+    </tr>`).join('');
+
+  const tabTable = S.dashTab === 'quizzes'
+    ? (quizRows || '')
+    : assignmentRows;
+  const tabEmpty = S.dashTab === 'quizzes' && !quizRows;
 
   return `
-  ${!S.onboardingDismissed?`
-  <div class="onboarding-banner mb-20">
-    <button data-action="dismiss-onboarding" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.45);cursor:pointer;font-size:20px;line-height:1">×</button>
-    <div style="display:flex;gap:14px;align-items:flex-start">
-      <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px;flex-shrink:0">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <div>
-        <div style="font-weight:600;font-size:14px;margin-bottom:4px">Welcome to the AI Mastery Engine</div>
-        <div style="font-size:13px;opacity:0.75;line-height:1.6">This layer tracks what you actually know, predicts what's fading, and tells you what to do next — not just what you got right. Every recommendation is grounded in your own quiz history and timing, not a generic study plan.</div>
-      </div>
-    </div>
-  </div>`:''}
+  ${!S.onboardingDismissed ? `
+  <div class="onboarding-compact">
+    <span><strong>AI Mastery Engine</strong> — tracks what you know, predicts what's fading, and recommends what to review next.</span>
+    <button data-action="dismiss-onboarding" style="background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:18px;line-height:1;flex-shrink:0">×</button>
+  </div>` : ''}
 
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+  <div class="dash-grid">
     <div>
-      <div class="text-xs font-600 text-muted mb-4" style="text-transform:uppercase;letter-spacing:0.05em">Good morning</div>
-      <div style="font-size:22px;font-weight:700;color:#1b3950">Alex Kim</div>
+      <div class="section-label">Start Quiz</div>
+      <div class="panel-card">
+        <div class="start-block">
+          <h4>Custom Quiz</h4>
+          <p>Select any concept from your mastery map for a targeted review.</p>
+          <button class="btn btn-block" data-action="navigate" data-value="mastery" style="background:var(--info)">Browse My Mastery</button>
+        </div>
+        <div class="start-block">
+          <div class="between" style="align-items:center">
+            <h4 style="margin:0">Quick Start Quiz</h4>
+            <button class="btn-secondary-outline" data-action="open-drawer" data-value="${recommended.id}">Details</button>
+          </div>
+          <p style="margin-top:6px">Recommended: ${recommended.name} — ${recommended.subject}, tutor mode.</p>
+          <button class="btn btn-block" data-action="start-quiz" data-value="${recommended.id}" style="background:var(--info)">New Quick Start Quiz</button>
+        </div>
+        <div class="start-block">
+          <h4>At Risk Quiz</h4>
+          <p>${fragile.length} fragile concepts, highest decay subjects, tutor mode.</p>
+          <button class="btn btn-block ${atRiskAvailable ? '' : 'disabled'}" ${atRiskAvailable ? `data-action="start-quiz" data-value="${fragile[0].id}"` : ''} ${atRiskAvailable ? '' : 'disabled'}
+            style="background:${atRiskAvailable ? 'var(--info)' : '#9db8d6'}">New At Risk Quiz</button>
+        </div>
+      </div>
     </div>
-    <div style="font-size:13px;color:#c9851b;background:#fdf3e0;padding:6px 14px;border-radius:8px;font-weight:500">📅 42 days to exam</div>
+
+    <div class="joined">
+      <div class="col-perf">
+        <div class="section-label">Performance</div>
+        <div class="panel-card">
+          <div class="perf-cells">
+            <div class="pc">
+              <div class="donut" style="--p:${avg};background:conic-gradient(${scoreColor} calc(${avg}*1%), #e9edf1 0)">
+                <div class="hole"><div><small class="text-muted">Mastery</small><div class="big">${avg}%</div></div></div>
+              </div>
+            </div>
+            <div class="pc">
+              <div class="peer-curve">${bellCurve(peer)}</div>
+              <div style="margin-top:6px"><b>Peer Rank</b>
+                <span style="font-size:26px;font-weight:700;color:var(--navy-900);margin-left:6px">${peer}<sup style="font-size:13px">th</sup></span>
+                <div><small class="text-muted" style="font-style:italic">Percentile</small></div>
+              </div>
+            </div>
+            <div class="pc">
+              <div style="font-weight:700;color:var(--navy-800);font-size:13px;margin-bottom:8px">
+                Subject Risk Distribution <span class="text-muted" title="How your concepts are distributed by readiness">(?)</span>
+              </div>
+              <div class="donut-wrap">
+                ${riskDonut(riskDist)}
+                <div class="risk-legend">
+                  ${riskDist.map(r => `<div class="ln"><span class="risk-badge ${r.color}">${r.percent}%</span> ${r.category}</div>`).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-qstatus">
+        <div class="section-label">Question Status</div>
+        <div class="panel-card qstatus">
+          <div class="ln"><span class="k">Answered</span><span class="v">${qs.answered}</span></div>
+          <div class="ln"><span class="k">Unanswered</span><span class="v">${qs.unanswered}</span></div>
+          <div class="ln"><span class="k">Unseen</span><span class="v">${qs.unseen}</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="grid-2 mb-16">
-    <!-- Mastery Card -->
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-        <div>
-          <div class="text-xs font-600 text-muted mb-4" style="text-transform:uppercase;letter-spacing:0.05em">Overall Mastery</div>
-          <div style="font-size:42px;font-weight:700;color:#1b3950;line-height:1">${avg}<span style="font-size:20px;color:#93a3b2">%</span></div>
-          <div style="font-size:12px;color:#c9851b;margin-top:4px">3 concepts pulling this down</div>
+  <div class="dash-bottom">
+    <div>
+      <div class="section-label">CME/MOC</div>
+      <div class="panel-card cme-card">
+        <div class="between" style="align-items:flex-start">
+          <div>
+            <div class="type">Exam Readiness Target</div>
+            <div class="earned">${readiness}% of 80% Goal</div>
+            <div class="text-muted" style="font-size:12.5px">${masteredCount} concepts mastered · 42 days to exam</div>
+          </div>
+          <button class="btn-secondary-outline" data-action="navigate" data-value="planner">Open Planner</button>
         </div>
-        <div style="text-align:right">
-          <div class="text-xs text-muted">12 concepts tracked</div>
-          <div style="margin-top:8px">${sparkline([58,61,63,65,66,avg],80,32)}</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:14px">
-        ${stateCounts.map(({s,n})=>`
-        <div style="text-align:center;padding:8px 4px;background:#f4f7f9;border-radius:8px">
-          <div style="font-size:20px;font-weight:700;color:${stateColor(s)}">${n}</div>
-          <div style="font-size:10px;color:#93a3b2;margin-top:2px">${s}</div>
-        </div>`).join('')}
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width:${avg}%;background:linear-gradient(90deg,#2c6dd4,#4a85ef)"></div>
       </div>
     </div>
-
-    <!-- Next Best Action -->
-    <div class="card" style="border:1.5px solid #2c6dd4;background:#ecf5fb">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-        <div style="width:8px;height:8px;background:#2c6dd4;border-radius:50%;animation:pulse 2s infinite"></div>
-        <span class="text-xs font-600 text-blue" style="text-transform:uppercase;letter-spacing:0.06em">Next best action</span>
-      </div>
-      <div style="font-size:17px;font-weight:600;color:#1b3950;margin-bottom:6px">${recommended.name}</div>
-      <div style="font-size:13px;color:#5b6b7b;margin-bottom:14px">${recommended.subject}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
-        <span class="signal-chip">⏱ ${recommended.daysSince}d since last correct</span>
-        <span class="signal-chip" style="color:${decayColor(recommended.decay)}">📉 ${recommended.decay}% decay risk</span>
-        <span class="signal-chip">📊 ${recommended.mastery}% mastery</span>
-      </div>
-      <button class="btn-primary" data-action="start-quiz" data-value="${recommended.id}" style="width:100%;padding:12px">Start recommended review →</button>
-    </div>
-  </div>
-
-  <!-- Topics at risk + Readiness + Peer -->
-  <div style="display:grid;grid-template-columns:1fr 300px;gap:16px">
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div style="font-weight:600;font-size:15px">Topics fading from memory</div>
-        <button data-action="navigate" data-value="forecast" class="btn-ghost" style="font-size:12px;padding:5px 12px">See all →</button>
-      </div>
-      ${fragile.map(c=>`
-      <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #f4f7f9">
-        <div style="flex:1;min-width:0">
-          <div style="font-weight:500;font-size:14px">${c.name}</div>
-          <div class="text-xs text-muted mt-4">${c.subject} · Last correct ${c.daysSince}d ago</div>
+    <div>
+      <div class="section-label" style="visibility:hidden">.</div>
+      <div class="panel-card">
+        <div class="bv-tabs">
+          <button class="${S.dashTab==='quizzes'?'active':''}" data-action="dash-tab" data-value="quizzes">Quizzes</button>
+          <button class="${S.dashTab==='assignments'?'active':''}" data-action="dash-tab" data-value="assignments">Assignments</button>
         </div>
-        <div style="flex-shrink:0">${stateBadge(c.state)}</div>
-        <div style="font-size:13px;font-weight:600;color:${decayColor(c.decay)};flex-shrink:0">${c.decay}%</div>
-        <button class="btn-ghost" data-action="start-quiz" data-value="${c.id}" style="font-size:12px;padding:6px 12px;flex-shrink:0">Review</button>
-      </div>`).join('')}
-    </div>
-
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="card">
-        <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">Exam readiness</div>
-        <div style="font-size:36px;font-weight:700;color:#1b3950">68<span style="font-size:18px;color:#93a3b2">%</span></div>
-        <div class="text-xs text-amber mt-4 mb-12">Fix fragile topics to reach 80%</div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width:68%;background:#c9851b"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">vs. Peers</div>
-        <div style="font-size:32px;font-weight:700;color:#487b09">Top 34%</div>
-        <div class="text-xs text-muted mt-4">Stronger than avg. on Cardiology</div>
-      </div>
-      <div class="card">
-        <div class="text-xs font-600 text-muted mb-8" style="text-transform:uppercase">Today's goal</div>
-        <div style="font-size:14px;font-weight:500">~32 min · 3 topics</div>
-        <button data-action="navigate" data-value="planner" class="btn-ghost" style="width:100%;margin-top:10px;font-size:12px">Open planner →</button>
+        ${tabEmpty
+          ? `<div class="bv-tabrow-empty">No Quiz Available</div>`
+          : `<table class="data"><tbody>${tabTable}</tbody></table>`}
+        <div class="see-more" data-action="navigate" data-value="${S.dashTab==='quizzes'?'forecast':'planner'}" style="cursor:pointer">See more</div>
       </div>
     </div>
   </div>`;
@@ -1057,6 +1192,10 @@ function handleAction(action, value, e) {
       break;
     case 'dismiss-onboarding':
       S.onboardingDismissed = true;
+      renderMain();
+      break;
+    case 'dash-tab':
+      S.dashTab = value;
       renderMain();
       break;
     case 'set-role':
