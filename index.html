@@ -42,31 +42,31 @@
 html,body{margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* App shell: top chrome + sidebar + main */
+/* App shell: top chrome + content */
 .app{min-height:100vh;background:var(--page-bg)}
 .top-chrome{position:fixed;top:0;left:0;right:0;z-index:30}
-.app-body{display:flex;margin-top:var(--top-chrome-h);min-height:calc(100vh - var(--top-chrome-h))}
+.app-body{margin-top:var(--top-chrome-h);min-height:calc(100vh - var(--top-chrome-h));padding:20px 24px 28px}
+.content-wrap{display:flex;gap:20px;align-items:flex-start;max-width:1440px;margin:0 auto;width:100%}
 
-/* AI Mastery sidebar */
-.ai-sidebar{width:var(--sidebar-w);position:fixed;left:0;top:var(--top-chrome-h);height:calc(100vh - var(--top-chrome-h));background:var(--ai-navy);color:#fff;display:flex;flex-direction:column;z-index:25;overflow-y:auto}
-.ai-sidebar .engine-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);padding:16px 16px 6px;display:flex;align-items:center;gap:6px}
-.ai-sidebar .live-dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
-.ai-sidebar .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.65);margin:2px 8px;border:none;background:none;width:calc(100% - 16px);text-align:left;font-family:inherit;transition:all .15s}
-.ai-sidebar .nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
-.ai-sidebar .nav-item.active{background:var(--teal-600);color:#fff}
-.ai-sidebar .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.85}
-.ai-sidebar .nav-item.active .nav-icon{opacity:1}
-.ai-sidebar .sidebar-spacer{flex:1}
-.ai-sidebar .sidebar-bottom{padding:16px;border-top:1px solid rgba(255,255,255,.08)}
-.ai-sidebar .role-toggle{display:flex;background:rgba(255,255,255,.08);border-radius:8px;padding:3px;margin-bottom:12px;width:calc(100% - 0px)}
-.ai-sidebar .role-btn{flex:1;padding:6px;border-radius:6px;font-size:12px;font-weight:500;color:rgba(255,255,255,.6);cursor:pointer;border:none;background:none;font-family:inherit;transition:all .15s}
-.ai-sidebar .role-btn.active{background:var(--teal-600);color:#fff}
-.ai-sidebar .user-info{display:flex;align-items:center;gap:10px}
-.ai-sidebar .avatar{width:32px;height:32px;background:#1B3A6B;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);flex-shrink:0}
-.ai-sidebar .user-name{font-size:13px;font-weight:500;color:rgba(255,255,255,.85)}
-.ai-sidebar .user-role{font-size:11px;color:rgba(255,255,255,.4)}
+/* AI Mastery detached left panel */
+.ai-panel{width:var(--sidebar-w);flex-shrink:0;background:#fff;border:1px solid #e2e8ee;border-radius:10px;padding:16px 12px;display:none;flex-direction:column;box-shadow:var(--shadow);align-self:stretch}
+.content-wrap.ai-layout .ai-panel{display:flex}
+.ai-panel .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--muted);margin:2px 0;border:none;background:none;width:100%;text-align:left;font-family:inherit;transition:all .15s}
+.ai-panel .nav-item:hover{background:var(--bg);color:var(--navy-800)}
+.ai-panel .nav-item.active{background:var(--teal-050);color:var(--teal-600);font-weight:600}
+.ai-panel .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.75}
+.ai-panel .nav-item.active .nav-icon{opacity:1}
+.ai-panel .panel-spacer{flex:1;min-height:16px}
+.ai-panel .panel-bottom{padding-top:16px;margin-top:auto;border-top:1px solid #e2e8ee}
+.ai-panel .role-toggle{display:flex;background:var(--bg);border:1px solid #e2e8ee;border-radius:8px;padding:3px;margin-bottom:12px}
+.ai-panel .role-btn{flex:1;padding:6px;border-radius:6px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all .15s}
+.ai-panel .role-btn.active{background:#fff;color:var(--teal-600);font-weight:600;box-shadow:0 1px 3px rgba(16,42,67,.08)}
+.ai-panel .user-info{display:flex;align-items:center;gap:10px}
+.ai-panel .avatar{width:32px;height:32px;background:var(--teal-050);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--teal-700);flex-shrink:0}
+.ai-panel .user-name{font-size:13px;font-weight:500;color:var(--navy-900)}
+.ai-panel .user-role{font-size:11px;color:var(--muted)}
 
-.ai-main{margin-left:var(--sidebar-w);flex:1;padding:28px;background:var(--page-bg);min-height:calc(100vh - var(--top-chrome-h))}
+.ai-main{flex:1;min-width:0;min-height:calc(100vh - var(--top-chrome-h) - 48px)}
 .bv-coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px;text-align:center;padding:40px}
 .bv-coming-soon h2{font-size:22px;color:var(--navy-900);margin-bottom:8px}
 .bv-coming-soon p{color:var(--muted);font-size:15px}
@@ -284,6 +284,7 @@ table.data tbody tr:hover{background:var(--bg)}
       <button class="nav-tab" data-menu="performance">Performance <span class="caret">▼</span></button>
       <button class="nav-tab" data-action="bv-nav" data-value="bv-clinical-pearls" data-label="Clinical Pearls">Clinical Pearls</button>
       <button class="nav-tab" data-action="bv-nav" data-value="bv-cme" data-label="My CME/CE">My CME/CE</button>
+      <button class="nav-tab" data-action="ai-zone">AI Mastery Engine</button>
       <div class="right">
         <button class="review-btn nav-tab" data-action="bv-nav" data-value="bv-practice-exams" data-label="Practice Exams">Practice Exams</button>
         <button class="browse nav-tab" data-menu="browse" type="button">Browse Questions <span class="caret">▼</span></button>
@@ -298,9 +299,8 @@ table.data tbody tr:hover{background:var(--bg)}
   </div>
 
   <div class="app-body">
-    <aside class="ai-sidebar" id="ai-sidebar">
-      <div class="engine-label"><span class="live-dot"></span> AI Mastery Engine</div>
-
+    <div class="content-wrap" id="content-wrap">
+    <aside class="ai-panel" id="ai-panel">
       <div id="student-nav">
         <button class="nav-item active" data-action="navigate" data-value="dashboard">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -331,9 +331,9 @@ table.data tbody tr:hover{background:var(--bg)}
         </button>
       </div>
 
-      <div class="sidebar-spacer"></div>
+      <div class="panel-spacer"></div>
 
-      <div class="sidebar-bottom">
+      <div class="panel-bottom">
         <div class="role-toggle">
           <button class="role-btn active" data-action="set-role" data-value="student">Student</button>
           <button class="role-btn" data-action="set-role" data-value="instructor">Instructor</button>
@@ -351,6 +351,7 @@ table.data tbody tr:hover{background:var(--bg)}
     <main class="ai-main">
       <div id="main-content" class="fade-in"></div>
     </main>
+    </div>
   </div>
 </div>
 
@@ -429,7 +430,7 @@ const DEFAULT_QUIZ = [
 // STATE
 // ============================================================
 let S = {
-  zone: 'ai',
+  zone: 'bv',
   page: 'dashboard',
   bvTab: 'bv-dashboard',
   bvTabLabel: 'Dashboard',
@@ -593,7 +594,9 @@ function openBvMenu(menuId, anchor) {
 
 function renderTopNav() {
   document.querySelectorAll('#subnav .nav-tab').forEach(el => {
-    if (el.dataset.menu) {
+    if (el.dataset.action === 'ai-zone') {
+      el.classList.toggle('active', S.zone === 'ai');
+    } else if (el.dataset.menu) {
       const tabs = BV_NAV_MENUS[el.dataset.menu]?.map(i => i.tab) || [];
       el.classList.toggle('active', S.zone === 'bv' && tabs.includes(S.bvTab));
     } else if (el.dataset.value) {
@@ -605,6 +608,7 @@ function renderTopNav() {
 }
 
 function renderSidebarNav() {
+  document.getElementById('content-wrap').classList.toggle('ai-layout', S.zone === 'ai');
   const isInstructor = S.role === 'instructor';
   document.getElementById('student-nav').style.display = isInstructor ? 'none' : 'block';
   document.getElementById('instructor-nav').style.display = isInstructor ? 'block' : 'none';
@@ -612,7 +616,7 @@ function renderSidebarNav() {
   navRoot.querySelectorAll('.nav-item').forEach(el => {
     el.classList.toggle('active', S.zone === 'ai' && el.dataset.value === S.page);
   });
-  document.querySelectorAll('.ai-sidebar .role-btn').forEach(b => {
+  document.querySelectorAll('.ai-panel .role-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.value === S.role);
   });
   if (isInstructor) {
@@ -1406,6 +1410,11 @@ function renderMain() {
 // ============================================================
 function handleAction(action, value, e, label) {
   switch(action) {
+    case 'ai-zone':
+      S.zone = 'ai';
+      renderMain();
+      window.scrollTo(0,0);
+      break;
     case 'navigate':
       S.zone = 'ai';
       S.page = value;
@@ -1566,8 +1575,8 @@ document.getElementById('subnav').addEventListener('click', e=>{
   handleAction(t.dataset.action, t.dataset.value, e, t.dataset.label);
 });
 
-// Delegation — AI sidebar
-document.getElementById('ai-sidebar').addEventListener('click', e=>{
+// Delegation — AI panel
+document.getElementById('ai-panel').addEventListener('click', e=>{
   const t = e.target.closest('[data-action]');
   if(!t) return;
   handleAction(t.dataset.action, t.dataset.value, e);
