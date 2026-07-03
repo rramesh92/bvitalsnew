@@ -140,8 +140,11 @@ th:hover{color:var(--teal-600)}
 td{padding:13px 16px;font-size:14px;border-bottom:1px solid var(--line);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bg)}
-.filter-btn{padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:inherit;color:var(--muted);transition:all .12s}
-.filter-btn.active,.filter-btn:hover{border-color:var(--teal-600);color:var(--teal-600);background:var(--teal-050)}
+.filter-btn{padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:inherit;color:var(--muted);transition:background .12s,border-color .12s,color .12s}
+.filter-btn:hover:not(.active){border-color:#cdd6df;color:var(--navy-800);background:var(--bg)}
+.filter-btn.active{border-color:var(--teal-600);color:var(--teal-600);background:var(--teal-050);box-shadow:inset 0 0 0 1px var(--teal-600)}
+.filter-btn:focus{outline:none}
+.filter-btn:focus-visible{outline:2px solid var(--teal-500);outline-offset:2px}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(17,50,77,.45);z-index:50;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
 .modal-box{background:#fff;border-radius:16px;padding:36px;width:620px;max-width:94vw;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
@@ -908,7 +911,7 @@ function renderMastery() {
 
   <!-- Filters -->
   <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-    ${filters.map(f=>`<button class="filter-btn ${S.masteryFilter===f?'active':''}" data-action="filter-mastery" data-value="${f}">${f==='all'?'All concepts':f}</button>`).join('')}
+    ${filters.map(f=>`<button type="button" class="filter-btn${S.masteryFilter===f?' active':''}" data-action="filter-mastery" data-value="${f}" aria-pressed="${S.masteryFilter===f}">${f==='all'?'All concepts':f}</button>`).join('')}
   </div>
 
   <!-- Table -->
@@ -1434,6 +1437,7 @@ function handleAction(action, value, e, label) {
     case 'filter-mastery':
       S.masteryFilter = value;
       renderMain();
+      if (e?.target?.blur) e.target.blur();
       break;
     case 'sort-mastery':
       if(S.masterySort===value) S.masterySortDir = S.masterySortDir==='asc'?'desc':'asc';
