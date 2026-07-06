@@ -317,35 +317,7 @@ table.data tbody tr:hover{background:var(--bg)}
   <div class="app-body">
     <div class="content-wrap" id="content-wrap">
     <aside class="ai-panel" id="ai-panel">
-      <div id="student-nav">
-        <button class="nav-item active" data-action="navigate" data-value="dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          Dashboard
-        </button>
-        <button class="nav-item" data-action="navigate" data-value="mastery">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          My Mastery
-        </button>
-        <button class="nav-item" data-action="navigate" data-value="forecast">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          Decay Forecast
-        </button>
-        <button class="nav-item" data-action="navigate" data-value="planner">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Study Planner
-        </button>
-      </div>
-
-      <div id="instructor-nav" style="display:none">
-        <button class="nav-item active" data-action="navigate" data-value="dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          Dashboard
-        </button>
-        <button class="nav-item" data-action="navigate" data-value="instructor">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Cohort View
-        </button>
-      </div>
+      <div id="ai-nav-list"></div>
 
       <div class="panel-spacer"></div>
 
@@ -590,6 +562,19 @@ const BV_NAV_MENUS = {
   ],
 };
 
+const AI_NAV_ITEMS = {
+  student: [
+    { value: 'dashboard', label: 'Dashboard', icon: '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>' },
+    { value: 'mastery', label: 'My Mastery', icon: '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' },
+    { value: 'forecast', label: 'Decay Forecast', icon: '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' },
+    { value: 'planner', label: 'Study Planner', icon: '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
+  ],
+  instructor: [
+    { value: 'dashboard', label: 'Dashboard', icon: '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>' },
+    { value: 'instructor', label: 'Cohort View', icon: '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+  ],
+};
+
 function openBvMenu(menuId, anchor) {
   closeMenus();
   const items = BV_NAV_MENUS[menuId];
@@ -626,12 +611,12 @@ function renderTopNav() {
 function renderSidebarNav() {
   document.getElementById('content-wrap').classList.toggle('ai-layout', S.zone === 'ai');
   const isInstructor = S.role === 'instructor';
-  document.getElementById('student-nav').style.display = isInstructor ? 'none' : 'block';
-  document.getElementById('instructor-nav').style.display = isInstructor ? 'block' : 'none';
-  const navRoot = isInstructor ? document.getElementById('instructor-nav') : document.getElementById('student-nav');
-  navRoot.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.toggle('active', S.zone === 'ai' && el.dataset.value === S.page);
-  });
+  const items = AI_NAV_ITEMS[isInstructor ? 'instructor' : 'student'];
+  document.getElementById('ai-nav-list').innerHTML = items.map(item => `
+    <button type="button" class="nav-item${S.zone === 'ai' && S.page === item.value ? ' active' : ''}" data-action="navigate" data-value="${item.value}">
+      ${item.icon}
+      ${item.label}
+    </button>`).join('');
   document.querySelectorAll('.ai-panel .role-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.value === S.role);
   });
